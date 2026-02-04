@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Unlock Video</title>
+
+<style>
+body{
+  margin:0;
+  min-height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  background:#000;
+  font-family:Arial,Helvetica,sans-serif;
+  color:#fff;
+}
+.card{
+  width:90%;
+  max-width:400px;
+  background:#111;
+  border-radius:12px;
+  overflow:hidden;
+}
+.thumb{
+  position:relative;
+}
+.thumb img{
+  width:100%;
+  display:block;
+}
+.play{
+  position:absolute;
+  top:50%;
+  left:50%;
+  transform:translate(-50%,-50%);
+  width:70px;
+  height:70px;
+  border-radius:50%;
+  background:rgba(0,0,0,.6);
+  display:flex;
+  justify-content:center;
+  align-items:center;
+}
+.play:before{
+  content:"";
+  margin-left:5px;
+  border-style:solid;
+  border-width:14px 0 14px 24px;
+  border-color:transparent transparent transparent #fff;
+}
+.content{
+  padding:15px;
+  text-align:center;
+}
+button{
+  width:100%;
+  padding:14px;
+  font-size:16px;
+  font-weight:bold;
+  border:none;
+  border-radius:8px;
+  background:#e50914;
+  color:#fff;
+  cursor:pointer;
+}
+</style>
+</head>
+
+<body>
+
+<div class="card">
+  <div class="thumb">
+    <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhBCrr50fO_y_caZECqOQeKfoxSYh-66gmbekexkoVqVhcuA_cApNZu5NGYzC1C2-1zMohxPPG2wTuG2d0CBsB3m1WjLovq63QtLKlJl2EQsBClRf1ufe8RzQJsU-b19hoiPeVPY3vAOXiqEztZPqaSudHUQXwVujzE7cQgugCx_Bzf_kT2KfhS5lY_sL8/s1024/poster.jpg">
+    <div class="play"></div>
+  </div>
+
+  <div class="content">
+    <button id="btn">Unlock Access (Ads-3)</button>
+  </div>
+</div>
+
+<script>
+const monetagLink = "https://otieu.com/4/10482308";
+const finalLink = "https://t.me/Tiktokallv01_bot?start=1bcb28d5";
+
+let adsLeft = localStorage.getItem("adsLeft");
+if(adsLeft === null) adsLeft = 3;
+adsLeft = parseInt(adsLeft);
+
+const btn = document.getElementById("btn");
+
+function updateBtn(){
+  if(adsLeft > 0){
+    btn.innerText = "Unlock Access (Ads-" + adsLeft + ")";
+  }else{
+    btn.innerText = "▶ Video Play";
+  }
+}
+
+btn.onclick = () => {
+  if(adsLeft > 0){
+    adsLeft--;
+    localStorage.setItem("adsLeft", adsLeft);
+    window.location.href = monetagLink;
+  }else{
+    window.location.href = finalLink;
+  }
+};
+
+updateBtn();
+</script>
+
+</body>
+</html>
