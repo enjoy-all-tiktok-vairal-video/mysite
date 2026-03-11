@@ -1,116 +1,392 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="bn">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Unlock Video</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>ENJOY ALL - Home</title>
+    <meta name="theme-color" content="#050505">
+    
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    
+    <script>(function(s){s.dataset.zone='10679138',s.src='https://nap5k.com/tag.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>
 
-<style>
-body{
-  margin:0;
-  min-height:100vh;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-  background:#000;
-  font-family:Arial,Helvetica,sans-serif;
-  color:#fff;
-}
-.card{
-  width:90%;
-  max-width:400px;
-  background:#111;
-  border-radius:12px;
-  overflow:hidden;
-}
-.thumb{
-  position:relative;
-}
-.thumb img{
-  width:100%;
-  display:block;
-}
-.play{
-  position:absolute;
-  top:50%;
-  left:50%;
-  transform:translate(-50%,-50%);
-  width:70px;
-  height:70px;
-  border-radius:50%;
-  background:rgba(0,0,0,.6);
-  display:flex;
-  justify-content:center;
-  align-items:center;
-}
-.play:before{
-  content:"";
-  margin-left:5px;
-  border-style:solid;
-  border-width:14px 0 14px 24px;
-  border-color:transparent transparent transparent #fff;
-}
-.content{
-  padding:15px;
-  text-align:center;
-}
-button{
-  width:100%;
-  padding:14px;
-  font-size:16px;
-  font-weight:bold;
-  border:none;
-  border-radius:8px;
-  background:#e50914;
-  color:#fff;
-  cursor:pointer;
-}
-</style>
+    <script src='//libtl.com/sdk.js' data-zone='10480960' data-sdk='show_10480960'></script>
+    <script src='//libtl.com/sdk.js' data-zone='10679278' data-sdk='show_10679278'></script>
+    <script src='//libtl.com/sdk.js' data-zone='10679295' data-sdk='show_10679295'></script>
+    
+    <style>
+        body { 
+            margin: 0; background: #050505; font-family: 'Segoe UI', Arial, sans-serif; color: white; 
+            scroll-behavior: smooth; overflow-x: hidden; 
+            touch-action: pan-y;
+        }
+        
+        .header { display: flex; justify-content: space-between; align-items: center; padding: 15px; background: rgba(10, 10, 10, 0.9); position: sticky; top: 0; z-index: 1000; backdrop-filter: blur(15px); border-bottom: 1px solid #222; }
+        
+        .logo { 
+            font-size: 22px; font-weight: bold; color: #ff0000; letter-spacing: 1px; 
+            text-shadow: 0 0 10px rgba(255,0,0,0.5); 
+            display: inline-block;
+            animation: logoElastic 3.5s ease-in-out infinite;
+        }
+        @keyframes logoElastic {
+            0%, 100% { transform: scale(1); color: #ff0000; }
+            50% { transform: scale(1.15) rotate(-3deg); color: #ffffff; text-shadow: 0 0 20px #ff0000; }
+        }
+
+        .search { 
+            padding: 10px 15px; border-radius: 25px; border: 2.5px solid #333; background: #1a1a1a; color: white; width: 45%; outline: none; transition: 0.3s; 
+            animation: rainbowBorder 4s linear infinite;
+        }
+        @keyframes rainbowBorder {
+            0% { border-color: #ff0000; box-shadow: 0 0 10px #ff0000; }
+            20% { border-color: #ffff00; box-shadow: 0 0 10px #ffff00; }
+            40% { border-color: #00ff00; box-shadow: 0 0 10px #00ff00; }
+            60% { border-color: #00ffff; box-shadow: 0 0 10px #00ffff; }
+            80% { border-color: #0000ff; box-shadow: 0 0 10px #0000ff; }
+            100% { border-color: #ff00ff; box-shadow: 0 0 10px #ff00ff; }
+        }
+        
+        .container { padding: 15px; margin-bottom: 80px; }
+        .section-title { font-size: 18px; margin: 25px 0 15px; border-left: 4px solid #ff0000; padding-left: 12px; font-weight: bold; text-transform: uppercase; letter-spacing: 1px; }
+
+        .slider-container { display: flex; overflow-x: auto; gap: 15px; padding-bottom: 15px; scrollbar-width: none; }
+        .slider-container::-webkit-scrollbar { display: none; }
+        .slide-card { min-width: 135px; height: 195px; position: relative; border-radius: 12px; overflow: hidden; border: 1px solid #333; flex-shrink: 0; box-shadow: 0 5px 15px rgba(0,0,0,0.5); transition: 0.4s; }
+        .slide-card img { width: 100%; height: 100%; object-fit: cover; }
+        .slide-card .overlay { position: absolute; bottom: 0; width: 100%; background: linear-gradient(transparent, rgba(0,0,0,0.95)); padding: 25px 5px 10px; text-align: center; }
+        .slide-card p { margin: 0; font-size: 11px; font-weight: bold; color: #fff; }
+
+        .cat-box { display: flex; gap: 12px; margin-bottom: 25px; overflow-x: auto; padding: 10px 5px; scrollbar-width: none; justify-content: flex-start; }
+        .cat-box::-webkit-scrollbar { display: none; }
+
+        .cat-btn { 
+            background: #111; color: #fff; padding: 10px 22px; border-radius: 30px; font-size: 13px; cursor: pointer; white-space: nowrap; transition: 0.4s; font-weight: 700; border: 2px solid #333; text-transform: uppercase;
+            animation: catLighting 4s linear infinite;
+        }
+        @keyframes catLighting {
+            0% { border-color: #ff0000; box-shadow: 0 0 10px #ff0000; }
+            25% { border-color: #ffff00; box-shadow: 0 0 10px #ffff00; }
+            50% { border-color: #00ff00; box-shadow: 0 0 10px #00ff00; }
+            75% { border-color: #00ffff; box-shadow: 0 0 10px #00ffff; }
+            100% { border-color: #ff0000; box-shadow: 0 0 10px #ff0000; }
+        }
+        .cat-btn.active { background: #fff; color: #000; border-color: #fff; box-shadow: 0 0 20px #fff; transform: scale(1.08); }
+
+        .video-grid { display: grid; grid-template-columns: 1fr; gap: 30px; max-width: 500px; margin: auto; }
+        .card { background: #121212; border-radius: 20px; overflow: hidden; border: 1px solid #252525; position: relative; transition: 0.4s; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+        
+        .highlight-card {
+            border: 3px solid #ff0000 !important;
+            animation: neonGlow 1.5s ease-in-out infinite alternate !important;
+            z-index: 10;
+        }
+        @keyframes neonGlow {
+            from { box-shadow: 0 0 15px #ff0000, 0 0 30px #ff0000; }
+            to { box-shadow: 0 0 25px #00ffff, 0 0 50px #00ffff; }
+        }
+
+        .card-img-box { position: relative; height: 260px; overflow: hidden; }
+        .card img { width: 100%; height: 100%; object-fit: cover; }
+        .card-info { padding: 20px; background: linear-gradient(to bottom, #121212, #0a0a0a); }
+        .card h3 { margin: 0 0 8px; font-size: 20px; font-weight: 700; color: #fff; }
+        
+        .button { padding: 15px; background: linear-gradient(90deg, #ff0000, #800000); border: none; color: white; width: 100%; border-radius: 15px; font-size: 16px; font-weight: 800; cursor: pointer; transition: 0.3s; text-transform: uppercase; margin-bottom: 15px; }
+
+        #listTitle { text-align:center; font-size: 24px; font-weight: bold; animation: rainbowText 4s linear infinite; margin-top: 20px; }
+        @keyframes rainbowText {
+            0% { color: #ff0000; text-shadow: 0 0 10px #ff0000; }
+            50% { color: #00ff00; text-shadow: 0 0 10px #00ff00; }
+            100% { color: #ff0000; text-shadow: 0 0 10px #ff0000; }
+        }
+
+        .share-row { display: flex; justify-content: center; gap: 8px; }
+        .s-btn { flex: 1; padding: 10px 2px; font-size: 11px; font-weight: bold; border-radius: 8px; color: white; border: 2px solid transparent; cursor: pointer; animation: discoLight 3s infinite; }
+        .btn-tt { background: #000; }
+        .btn-fb { background: #1877F2; animation-delay: 0.5s; }
+        .btn-wa { background: #25D366; animation-delay: 1s; }
+
+        @keyframes discoLight {
+            0%, 100% { transform: scale(1); filter: brightness(0.6); }
+            50% { transform: scale(1.08); filter: brightness(1.7); border-color: #fff; box-shadow: 0 0 15px #fff; }
+        }
+
+        .nav { position: fixed; bottom: 0; width: 100%; background: rgba(10, 10, 10, 0.95); display: flex; justify-content: space-around; padding: 15px 0; border-top: 1px solid #222; z-index: 1000; }
+        .nav a { color: #555; text-decoration: none; font-size: 12px; text-align: center; font-weight: 600; }
+        .nav a.active { color: #ff0000; }
+        #searchResult { margin-bottom: 30px; display: none; }
+    </style>
 </head>
+<body oncontextmenu="return false;">
 
-<body>
+<div class="header">
+    <div class="logo">ENJOY ALL</div>
+    <input type="text" class="search" placeholder="Search Code..." id="searchInput">
+</div>
 
-<div class="card">
-  <div class="thumb">
-    <img src="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhBCrr50fO_y_caZECqOQeKfoxSYh-66gmbekexkoVqVhcuA_cApNZu5NGYzC1C2-1zMohxPPG2wTuG2d0CBsB3m1WjLovq63QtLKlJl2EQsBClRf1ufe8RzQJsU-b19hoiPeVPY3vAOXiqEztZPqaSudHUQXwVujzE7cQgugCx_Bzf_kT2KfhS5lY_sL8/s1024/poster.jpg">
-    <div class="play"></div>
-  </div>
+<div class="container">
+    <div id="searchResult"></div>
 
-  <div class="content">
-    <button id="btn">Unlock Access (Ads-3)</button>
-  </div>
+    <div id="featuredArea">
+        <div class="section-title">Featured <span style="float:right; font-size:11px; color:#666;">Top 15 New</span></div>
+        <div class="slider-container" id="topSlider"></div>
+    </div>
+
+    <div class="section-title">Categories</div>
+    <div class="cat-box">
+        <button class="cat-btn active" onclick="filterCat('all', this)">All Episodes</button>
+        <button class="cat-btn" onclick="filterCat('tiktok', this)">TikTok Viral</button>
+        <button class="cat-btn" onclick="filterCat('others', this)">Others Link</button>
+    </div>
+
+    <h2 id="listTitle">ALL EPISODES</h2>
+    <div class="video-grid" id="allVideos"></div>
+</div>
+
+<div class="nav">
+    <a href="index.html" class="active">🏠<br>Home</a>
+    <a href="browser.html">🌐<br>Browser</a>
+    <a href="profile.html">👤<br>Profile</a>
+    <a href="support.html">🛠<br>Support</a>
 </div>
 
 <script>
-const monetagLink = "https://otieu.com/4/10482308";
-const finalLink = "https://t.me/Tiktokallv01_bot?start=1bcb28d5";
+// বিজ্ঞাপন সজানো
+setInterval(() => {
+    let ads = document.querySelectorAll('div[id^="prop-"], .monetag-push-container');
+    ads.forEach(ad => {
+        ad.style.setProperty('left', '5px', 'important');
+        ad.style.setProperty('right', 'auto', 'important');
+    });
+}, 500);
 
-let adsLeft = localStorage.getItem("adsLeft");
-if(adsLeft === null) adsLeft = 3;
-adsLeft = parseInt(adsLeft);
+const myDirectLink = "https://omg10.com/4/10547767";
 
-const btn = document.getElementById("btn");
-
-function updateBtn(){
-  if(adsLeft > 0){
-    btn.innerText = "Unlock Access (Ads-" + adsLeft + ")";
-  }else{
-    btn.innerText = "▶ Video Play";
-  }
-}
-
-btn.onclick = () => {
-  if(adsLeft > 0){
-    adsLeft--;
-    localStorage.setItem("adsLeft", adsLeft);
-    window.location.href = monetagLink;
-  }else{
-    window.location.href = finalLink;
-  }
+const videos = {
+    "0001050": { title: "Episode 143", image: "https://i.ibb.co/8DsPZxpr/poster.jpg", final: "https://t.me/vaiiralwathevideo_bot?start=60579515", cat: "tiktok" },
+    "0001049": { title: "Episode 142", image: "https://i.ibb.co/7dL8zsMY/poster.jpg", final: "https://t.me/vaiiralwathevideo_bot?start=9d387f0c", cat: "tiktok" },
+    "0001048": { title: "Episode 141", image: "https://i.ibb.co/ymRHLmm6/poster.jpg", final: "https://t.me/vaiiralwathevideo_bot?start=1e4ff650", cat: "tiktok" },
+    "0001047": { title: "Episode 140", image: "https://i.ibb.co/8gjVZLtR/poster.jpg", final: "https://t.me/vaiiralwathevideo_bot?start=ece38364", cat: "all" },
+    "0001046": { title: "Episode 139", image: "https://i.ibb.co/8gjVZLtR/poster.jpg", final: "https://t.me/vaiiralwathevideo_bot?start=4fc6d938", cat: "all" },
+    "0001045": { title: "Episode 138", image: "https://i.ibb.co/8gjVZLtR/poster.jpg", final: "https://t.me/vaiiralwathevideo_bot?start=cecca927", cat: "all" },
+    "0001044": { title: "Episode 137", image: "https://i.ibb.co/8gjVZLtR/poster.jpg", final: "https://t.me/vaiiralwathevideo_bot?start=ba411f7f", cat: "all" },
+    "0001043": { title: "Episode 136", image: "https://i.ibb.co/8gjVZLtR/poster.jpg", final: "https://t.me/vaiiralwathevideo_bot?start=1c97fade", cat: "all" },
+    "0001042": { title: "Episode 135", image: "https://i.ibb.co/8gjVZLtR/poster.jpg", final: "https://t.me/vaiiralwathevideo_bot?start=5f397f9b", cat: "all" },
+    "0001041": { title: "Episode 134", image: "https://i.ibb.co/8gjVZLtR/poster.jpg", final: "https://t.me/vaiiralwathevideo_bot?start=50092fac", cat: "all" },
+    "0001040": { title: "Episode 133", image: "https://i.ibb.co/8gjVZLtR/poster.jpg", final: "https://t.me/vaiiralwathevideo_bot?start=00b3ce90", cat: "all" },
+    "0001039": { title: "Episode 132", image: "https://i.ibb.co/8gjVZLtR/poster.jpg", final: "https://t.me/vaiiralwathevideo_bot?start=0ae08d50", cat: "all" },
+    "0001038": { title: "Episode 131", image: "https://i.ibb.co/8gjVZLtR/poster.jpg", final: "https://t.me/vaiiralwathevideo_bot?start=74d0158a", cat: "all" },
+    "0001037": { title: "Episode 130", image: "https://i.ibb.co/8gjVZLtR/poster.jpg", final: "https://t.me/vaiiralwathevideo_bot?start=860dc52d", cat: "all" },
+    "0001036": { title: "Episode 129", image: "https://i.ibb.co/8gjVZLtR/poster.jpg", final: "https://t.me/vaiiralwathevideo_bot?start=6f099b00", cat: "all" },
+    "0001035": { title: "Episode 128", image: "https://i.ibb.co/8gjVZLtR/poster.jpg", final: "https://t.me/vaiiralwathevideo_bot?start=7d8b5f32", cat: "all" },
+    "0001034": { title: "Episode 127", image: "https://i.ibb.co/8gjVZLtR/poster.jpg", final: "https://t.me/vaiiralwathevideo_bot?start=1ff404f8", cat: "all" },
+    "0001033": { title: "Episode 126", image: "https://i.ibb.co/8gjVZLtR/poster.jpg", final: "https://t.me/vaiiralwathevideo_bot?start=2a820a92", cat: "all" },
+    "0001032": { title: "Episode 125", image: "https://i.ibb.co/8gjVZLtR/poster.jpg", final: "https://t.me/vaiiralwathevideo_bot?start=5577403b", cat: "all" },
+    "0001031": { title: "Episode 124", image: "https://i.ibb.co/8gjVZLtR/poster.jpg", final: "https://t.me/vaiiralwathevideo_bot?start=e44dea14", cat: "all" },
+    "0001030": { title: "Episode 123", image: "https://i.ibb.co/8gjVZLtR/poster.jpg", final: "https://t.me/vaiiralwathevideo_bot?start=1ff71932", cat: "all" },
+    "0001029": { title: "Episode 122", image: "https://i.ibb.co/8gjVZLtR/poster.jpg", final: "https://t.me/vaiiralwathevideo_bot?start=c9181001", cat: "all" },
+    "0001028": { title: "Episode 121", image: "https://i.ibb.co/8gjVZLtR/poster.jpg", final: "https://t.me/vaiiralwathevideo_bot?start=6a23daa9", cat: "all" },
+    "0001027": { title: "Episode 120", image: "https://i.ibb.co/8gjVZLtR/poster.jpg", final: "https://t.me/vaiiralwathevideo_bot?start=835252df", cat: "all" },
+    "0001026": { title: "Episode 119", image: "https://i.ibb.co/8gjVZLtR/poster.jpg", final: "https://t.me/vaiiralwathevideo_bot?start=0c8cba54", cat: "all" },
+    "0001025": { title: "Episode 118", image: "https://i.ibb.co/8gjVZLtR/poster.jpg", final: "https://t.me/vaiiralwathevideo_bot?start=1b140144", cat: "all" },
+    "0001024": { title: "Episode 117", image: "https://i.ibb.co/8gjVZLtR/poster.jpg", final: "https://t.me/vaiiralwathevideo_bot?start=f8bf2eab", cat: "all" },
+    "0001023": { title: "Episode 116", image: "https://i.ibb.co/8gjVZLtR/poster.jpg", final: "https://t.me/vaiiralwathevideo_bot?start=925c2339", cat: "all" },
+    "0001021": { title: "Episode 114", image: "https://i.ibb.co/8gjVZLtR/poster.jpg", final: "https://t.me/vaiiralwathevideo_bot?start=3953f500", cat: "all" },
+    "0001020": { title: "Episode 113", image: "https://i.ibb.co/8gjVZLtR/poster.jpg", final: "https://t.me/vaiiralwathevideo_bot?start=3b0fe6df", cat: "all" },
+    "0001019": { title: "Episode 112", image: "https://i.ibb.co/8gjVZLtR/poster.jpg", final: "https://t.me/vaiiralwathevideo_bot?start=f2ad0984", cat: "all" },
+    "0001018": { title: "Episode 111", image: "https://i.ibb.co/8gjVZLtR/poster.jpg", final: "https://t.me/vaiiralwathevideo_bot?start=391381df", cat: "all" },
+    "0001017": { title: "Episode 110", image: "https://i.ibb.co/8gjVZLtR/poster.jpg", final: "https://t.me/Enjoyallvideo_bot?start=ad029d8b", cat: "all" },
+    "0001016": { title: "Episode 109", image: "https://i.ibb.co/My33TKhn/poster.jpg", final: "https://t.me/Enjoyallvideo_bot?start=f659b87f", cat: "all" },
+    "0001015": { title: "Episode 102", image: "https://i.ibb.co/8gjVZLtR/poster.jpg", final: "https://t.me/Enjoyallvideo_bot?start=3104b75c", cat: "all" },
+    "0001014": { title: "Episode 108", image: "https://i.ibb.co/8gjVZLtR/poster.jpg", final: "https://t.me/Enjoyallvideo_bot?start=6f04531f", cat: "all" },
+    "0001013": { title: "Episode 107", image: "https://i.ibb.co/8gjVZLtR/poster.jpg", final: "https://t.me/Enjoyallvideo_bot?start=57764f55", cat: "all" },
+    "0001012": { title: "Episode 106", image: "https://i.ibb.co/8Lqd2rFR/poster.jpg", final: "https://t.me/Enjoyallvideo_bot?start=325caa2f", cat: "all" },
+    "0001011": { title: "Episode 105", image: "https://i.ibb.co/8gjVZLtR/poster.jpg", final: "https://t.me/Enjoyallvideo_bot?start=37e8289c", cat: "all" },
+    "0001010": { title: "Episode 104", image: "https://i.ibb.co/8gjVZLtR/poster.jpg", final: "https://t.me/Enjoyallvideo_bot?start=d6866dd6", cat: "all" },
+    "0001009": { title: "Episode 103", image: "https://i.ibb.co/Rp0h01PG/poster.jpg", final: "https://t.me/Enjoyallvideo_bot?start=e77faa86", cat: "all" },
+    "0001008": { title: "Episode 101", image: "https://i.ibb.co/8gjVZLtR/poster.jpg", final: "https://t.me/Enjoyallvideo_bot?start=9b32d8ed", cat: "all" },
+    "0001007": { title: "Episode 100", image: "https://i.ibb.co/8gjVZLtR/poster.jpg", final: "https://t.me/Enjoyallvideo_bot?start=b6be1b96", cat: "all" },
+    "0001006": { title: "Episode 99", image: "https://i.ibb.co/8gjVZLtR/poster.jpg", final: "https://t.me/Enjoyallvideo_bot?start=09a2db7f", cat: "all" },
+    "0001005": { title: "Episode 98", image: "https://i.ibb.co/8gjVZLtR/poster.jpg", final: "https://t.me/Enjoyallvideo_bot?start=0c07fe39", cat: "all" },
+    "0001004": { title: "Episode 97", image: "https://i.ibb.co/8gjVZLtR/poster.jpg", final: "https://t.me/Enjoyallvideo_bot?start=f3eebff0", cat: "all" },
+    "0001003": { title: "Episode 96", image: "https://i.ibb.co/8gjVZLtR/poster.jpg", final: "https://t.me/Enjoyallvideo_bot?start=0c8df077", cat: "all" },
+    "0001002": { title: "Episode 95", image: "https://i.ibb.co/8gjVZLtR/poster.jpg", final: "https://t.me/Enjoyallvideo_bot?start=d34d4e3f", cat: "all" },
+    "0001001": { title: "Episode 94", image: "https://i.ibb.co/8gjVZLtR/poster.jpg", final: "https://t.me/Enjoyallvideo_bot?start=34a1f8ca", cat: "all" },
+    "0001000": { title: "Episode 93", image: "https://i.ibb.co/8gjVZLtR/poster.jpg", final: "https://t.me/Enjoyallvideo_bot?start=57b96222", cat: "all" },
+    "0000993": { title: "Episode 87", image: "https://i.ibb.co/8gjVZLtR/poster.jpg", final: "https://t.me/Enjoyallvideo_bot?start=0b6a9c56", cat: "all" },
+    "0000994": { title: "Episode 86", image: "https://i.ibb.co/8gjVZLtR/poster.jpg", final: "https://t.me/Enjoyallvideo_bot?start=fac00673", cat: "all" },
+    "0000992": { title: "Episode 85", image: "https://i.ibb.co/8gjVZLtR/poster.jpg", final: "https://t.me/Enjoyallvideo_bot?start=afedbfd4", cat: "all" },
+    "0000991": { title: "Episode 84", image: "https://i.ibb.co/8gjVZLtR/poster.jpg", final: "https://t.me/Enjoyallvideo_bot?start=616f895c", cat: "all" },
+    "0000900": { title: "Episode 83", image: "https://i.ibb.co/BHSwymG6/poster.jpg", final: "https://t.me/Enjoyallvideo_bot?start=c5f59768", cat: "all" },
+    "0000899": { title: "Episode 82", image: "https://i.ibb.co/Rpv1wY0W/poster.jpg", final: "https://t.me/Enjoyallvideo_bot?start=5c423dc7", cat: "all" },
+    "0000898": { title: "Episode 81", image: "https://i.ibb.co/tMbZCSSN/poster.jpg", final: "https://t.me/Enjoyallvideo_bot?start=9da9ea9c", cat: "all" },
+    "0000897": { title: "Episode 80", image: "https://i.ibb.co/jPTVYp15/poster.jpg", final: "https://t.me/Enjoyallvideo_bot?start=f106e232", cat: "all" },
+    "0000896": { title: "Episode 79", image: "https://i.ibb.co/FbXkst8d/poster.jpg", final: "https://t.me/Enjoyallvideo_bot?start=2a645f6e", cat: "all" },
+    "0000895": { title: "Episode 78", image: "https://i.ibb.co/chCwVnPF/poster.jpg", final: "https://t.me/Enjoyallvideo_bot?start=85683ee2", cat: "all" },
+    "0000894": { title: "Episode 77", image: "https://i.ibb.co/XfkFNBWc/poster.jpg", final: "https://t.me/Enjoyallvideo_bot?start=54e31dbb", cat: "all" },
+    "0000893": { title: "Episode 76", image: "https://i.ibb.co/8gjVZLtR/poster.jpg", final: "https://t.me/Enjoyallvideo_bot?start=90db078d", cat: "all" },
+    "0000892": { title: "Episode 75", image: "https://i.ibb.co/B2DkDG52/poster.jpg", final: "https://t.me/Enjoyallvideo_bot?start=6351d7f5", cat: "all" },
+    "0000891": { title: "Episode 74", image: "https://i.ibb.co/HDN5S5jQ/poster.jpg", final: "https://t.me/Enjoyallvideo_bot?start=f6130641", cat: "tiktok" },
+    "0000890": { title: "Episode 73", image: "https://i.ibb.co/q3SvNyzW/poster.jpg", final: "https://t.me/Enjoyallvideo_bot?start=f442bec9", cat: "all" },
+    "0008889": { title: "Episode 72", image: "https://i.ibb.co/8gjVZLtR/poster.jpg", final: "https://t.me/Enjoyallvideo_bot?start=7553e23d", cat: "all" },
+    "0008888": { title: "Episode 71", image: "https://i.ibb.co/8gjVZLtR/poster.jpg", final: "https://t.me/Enjoyallvideo_bot?start=7288a526", cat: "all" },
+    "0008887": { title: "Episode 70", image: "https://i.ibb.co/8gjVZLtR/poster.jpg", final: "https://t.me/Enjoyallvideo_bot?start=730187ab", cat: "all" },
+    "0008886": { title: "Episode 69", image: "https://i.ibb.co/8gjVZLtR/poster.jpg", final: "https://t.me/Enjoyallvideo_bot?start=f24db65a", cat: "all" },
+    "0008885": { title: "Episode 68", image: "https://i.ibb.co/8gjVZLtR/poster.jpg", final: "https://t.me/Enjoyallvideo_bot?start=422374ff", cat: "all" },
+    "0008884": { title: "Episode 67", image: "https://i.ibb.co/8gjVZLtR/poster.jpg", final: "https://t.me/Enjoyallvideo_bot?start=6fd7484a", cat: "all" },
+    "0008883": { title: "Episode 66", image: "https://i.ibb.co/LXXZgp04/poster.jpg", final: "https://t.me/Enjoyallvideo_bot?start=4f5f2c70", cat: "all" },
+    "0008882": { title: "Episode 65", image: "https://i.ibb.co/8gjVZLtR/poster.jpg", final: "https://t.me/Enjoyallvideo_bot?start=df1181e2", cat: "all" },
+    "0008881": { title: "Episode 64", image: "https://i.ibb.co/Gf3NwnD0/poster.png", final: "https://t.me/Enjoyallvideo_bot?start=ae02d3a3", cat: "all" },
+    "0008880": { title: "Episode 63", image: "https://i.ibb.co/8gjVZLtR/poster.jpg", final: "https://t.me/Enjoyallvideo_bot?start=e27c4708", cat: "all" },
+    "0008879": { title: "Episode 62", image: "https://i.ibb.co/SXSPWB1c/poster.png", final: "https://t.me/Enjoyallvideo_bot?start=b2d5bea1", cat: "all" },
+    "0008878": { title: "Episode 61", image: "https://i.ibb.co/6cHjhHP9/poster.png", final: "https://t.me/Enjoyallvideo_bot?start=31d186a4", cat: "all" },
+    "0008877": { title: "Episode 60", image: "https://i.ibb.co/fdtJ8cQT/poster.jpg", final: "https://t.me/Enjoyallvideo_bot?start=8595e02c", cat: "all" },
+    "0008876": { title: "Episode 59", image: "https://i.ibb.co/ZRBsJW3y/poster.jpg", final: "https://t.me/Enjoyallvideo_bot?start=875e75a1", cat: "all" },
+    "0008875": { title: "Episode 58", image: "https://i.ibb.co/8gjVZLtR/poster.jpg", final: "https://t.me/Enjoyallvideo_bot?start=61c149e1", cat: "all" },
+    "0008874": { title: "Episode 57", image: "https://i.ibb.co/8gjVZLtR/poster.jpg", final: "https://t.me/Enjoyallvideo_bot?start=a7dc11b4", cat: "all" },
+    "0008873": { title: "Episode 56", image: "https://i.ibb.co/8gjVZLtR/poster.jpg", final: "https://t.me/Enjoyallvideo_bot?start=3d66d07f", cat: "all" },
+    "0008872": { title: "Episode 55", image: "https://i.ibb.co/My6Wkk5x/poster.jpg", final: "https://t.me/Enjoyallvideo_bot?start=9ad11c1b", cat: "all" },
+    "0008871": { title: "Episode 54", image: "https://i.ibb.co/KxQJfQhY/poster.jpg", final: "https://t.me/Enjoyallvideo_bot?start=38a7c3a5", cat: "all" },
+    "0008870": { title: "Episode 53", image: "https://i.ibb.co/pjRCMbHm/poster.jpg", final: "https://t.me/Enjoyallvideo_bot?start=5740582f", cat: "all" },
+    "0008862": { title: "Episode 52", image: "https://i.ibb.co/8gjVZLtR/poster.jpg", final: "https://t.me/Enjoyallvideo_bot?start=f22bb493", cat: "all" },
+    "0008863": { title: "Episode 51", image: "https://i.ibb.co/8gjVZLtR/poster.jpg", final: "https://t.me/Enjoyallvideo_bot?start=75a7d459", cat: "all" },
+    "0008864": { title: "Episode 50", image: "https://i.ibb.co/8gjVZLtR/poster.jpg", final: "https://t.me/Enjoyallvideo_bot?start=9d91c921", cat: "all" },
+    "0008866": { title: "Episode 49", image: "https://i.ibb.co/8gjVZLtR/poster.jpg", final: "https://t.me/Enjoyallvideo_bot?start=96f68f2d", cat: "all" },
+    "0008848": { title: "Episode 48", image: "https://i.ibb.co/bDcMcd8/poster.jpg", final: "https://t.me/Enjoyallvideo_bot?start=b9079dc6", cat: "all" },
+    "0008849": { title: "Episode 47", image: "https://i.ibb.co/jZz96Z1k/poster.jpg", final: "https://t.me/Enjoyallvideo_bot?start=b0d89418", cat: "tiktok" },
+    "0008869": { title: "Episode 43", image: "https://i.ibb.co/8gjVZLtR/poster.jpg", final: "https://t.me/Enjoyallvideo_bot?start=ae7a9f1f", cat: "all" },
+    "0008868": { title: "Episode 42", image: "https://i.ibb.co/8gjVZLtR/poster.jpg", final: "https://t.me/Enjoyallvideo_bot?start=57c59a8a", cat: "all" },
+    "0008867": { title: "Episode 41", image: "https://i.ibb.co/8gjVZLtR/poster.jpg", final: "https://t.me/Enjoyallvideo_bot?start=867109a9", cat: "all" },
+    "0008865": { title: "Episode 40", image: "https://i.ibb.co/8gjVZLtR/poster.jpg", final: "https://t.me/Enjoyallvideo_bot?start=867109a9", cat: "all" }
 };
 
-updateBtn();
-</script>
+const otherLinks = [{ title: "Join TikTok Viral Telegram", image: "https://i.ibb.co.com/ZRDM8V5T/Telegram-logo-svg.png", url: "https://t.me/tiktokvairalvideo2026" }];
 
+let adCounts = {};
+let currentZoneIndex = 0;
+const zoneIds = ['10480960', '10679278', '10679295'];
+
+function startUnlock(code) {
+    if (!adCounts[code]) adCounts[code] = 3;
+    const btn = document.getElementById(`btn-${code}`);
+    
+    if (adCounts[code] === 2) window.open(myDirectLink, '_blank');
+
+    const activeZone = zoneIds[currentZoneIndex];
+    currentZoneIndex = (currentZoneIndex + 1) % zoneIds.length;
+
+    if (typeof window[`show_${activeZone}`] === 'function') {
+        window[`show_${activeZone}`]().then(() => handleAds(code, btn)).catch(() => handleAds(code, btn));
+    } else { handleAds(code, btn); }
+}
+
+function handleAds(code, btn) {
+    adCounts[code]--;
+    if (adCounts[code] > 0) {
+        btn.innerText = `🔒 UNLOCK (${adCounts[code]} ADS LEFT)`;
+    } else {
+        btn.innerText = "▶ PLAY VIDEO";
+        btn.style.background = "linear-gradient(90deg, #28a745, #1e7e34)";
+        btn.onclick = () => window.location.href = videos[code].final;
+    }
+}
+
+function filterCat(type, btn) {
+    document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
+    if(btn) btn.classList.add('active');
+    const grid = document.getElementById("allVideos");
+    grid.innerHTML = "";
+    if (type === 'others') {
+        document.getElementById("listTitle").innerText = "OTHER LINKS";
+        otherLinks.forEach(item => {
+            grid.innerHTML += `<div class="card"><a href="${item.url}"><img src="${item.image}"></a><div class="card-info" style="text-align:center"><h3>${item.title}</h3><p>Click image to open</p></div></div>`;
+        });
+    } else {
+        document.getElementById("listTitle").innerText = type === 'all' ? "ALL EPISODES" : "TIKTOK VIRAL";
+        Object.keys(videos).forEach(code => {
+            if (type === 'all' || videos[code].cat === type) {
+                grid.innerHTML += `
+                <div class="card" id="card-${code}">
+                    <div class="card-img-box"><img src="${videos[code].image}"></div>
+                    <div class="card-info">
+                        <h3>${videos[code].title}</h3>
+                        <p>Code: ${code}</p>
+                        <button class="button" onclick="startUnlock('${code}')" id="btn-${code}">🔒 UNLOCK (3 ADS LEFT)</button>
+                        <div class="share-row">
+                            <button class="s-btn btn-tt" onclick="share('tt','${code}')">TikTok</button>
+                            <button class="s-btn btn-fb" onclick="share('fb','${code}')">Facebook</button>
+                            <button class="s-btn btn-wa" onclick="share('wa','${code}')">WhatsApp</button>
+                        </div>
+                    </div>
+                </div>`;
+            }
+        });
+    }
+}
+
+function share(platform, code) {
+    // বটের লিংক ফরমেট ব্যবহার করা হয়েছে
+    const botLink = `https://t.me/enjoy420_bot/app?startapp=${code}`;
+    const text = `ভিডিও কোড: ${code}। সরাসরি ভিডিও দেখতে ক্লিক করুন: ${botLink}`;
+    if(platform === 'wa') window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent(text)}`, '_blank');
+    if(platform === 'fb') window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(botLink)}`, '_blank');
+    if(platform === 'tt') { navigator.clipboard.writeText(text); alert("লিঙ্ক কপি হয়েছে!"); }
+}
+
+// ৩. স্মুথ ফোকাস ও হাইলাইট লজিক (টেলিগ্রামের জন্য আপডেট করা)
+function init() {
+    const topSlider = document.getElementById("topSlider");
+    const codes = Object.keys(videos).slice(0, 15);
+    codes.forEach(code => {
+        topSlider.innerHTML += `
+        <div class="slide-card" onclick="startUnlock('${code}')">
+            <img src="${videos[code].image}">
+            <div class="overlay"><p>${videos[code].title}</p></div>
+        </div>`;
+    });
+    
+    filterCat('all', document.querySelector('.cat-btn'));
+
+    // ইউআরএল বা টেলিগ্রাম প্যারামিটার থেকে কোড চেক করা
+    const urlParams = new URLSearchParams(window.location.search);
+    let codeFromUrl = urlParams.get('code');
+
+    // টেলিগ্রাম WebApp প্যারামিটার চেক
+    try {
+        if (window.Telegram && window.Telegram.WebApp) {
+            window.Telegram.WebApp.ready(); // ওয়েব অ্যাপ রেডি করা
+            const tgParams = window.Telegram.WebApp.initDataUnsafe;
+            if (tgParams && tgParams.start_param) {
+                codeFromUrl = tgParams.start_param;
+            }
+        }
+    } catch (e) { console.log("TG WebApp not detected"); }
+    
+    if (codeFromUrl && videos[codeFromUrl]) {
+        setTimeout(() => {
+            const targetCard = document.getElementById(`card-${codeFromUrl}`);
+            if (targetCard) {
+                targetCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                targetCard.classList.add('highlight-card');
+            }
+        }, 1000);
+    }
+}
+
+document.addEventListener('touchstart', function(event) {
+    if (event.touches.length > 1) { event.preventDefault(); }
+}, { passive: false });
+
+document.getElementById("searchInput").addEventListener("keyup", function() {
+    const val = this.value.trim().toUpperCase();
+    const resultDiv = document.getElementById("searchResult");
+    if (videos[val]) {
+        resultDiv.style.display = "block";
+        resultDiv.innerHTML = "<h3 style='text-align:center; color:#ffcc00;'>Search Result:</h3><div class='card'><div class='card-img-box'><img src='"+videos[val].image+"'></div><div class='card-info'><h3>"+videos[val].title+"</h3><p>Code: "+val+"</p><button class='button' onclick=\"startUnlock('"+val+"')\" id='btn-"+val+"'>🔒 UNLOCK (3 ADS LEFT)</button></div></div>";
+    } else { resultDiv.style.display = "none"; }
+});
+
+init();
+</script>
 </body>
 </html>
