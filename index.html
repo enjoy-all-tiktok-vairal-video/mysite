@@ -151,7 +151,6 @@
 </div>
 
 <script>
-// বিজ্ঞাপন সজানো
 setInterval(() => {
     let ads = document.querySelectorAll('div[id^="prop-"], .monetag-push-container');
     ads.forEach(ad => {
@@ -325,7 +324,6 @@ function filterCat(type, btn) {
 }
 
 function share(platform, code) {
-    // বটের লিংক ফরমেট ব্যবহার করা হয়েছে
     const botLink = `https://t.me/enjoy420_bot/app?startapp=${code}`;
     const text = `ভিডিও কোড: ${code}। সরাসরি ভিডিও দেখতে ক্লিক করুন: ${botLink}`;
     if(platform === 'wa') window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent(text)}`, '_blank');
@@ -333,7 +331,6 @@ function share(platform, code) {
     if(platform === 'tt') { navigator.clipboard.writeText(text); alert("লিঙ্ক কপি হয়েছে!"); }
 }
 
-// ৩. স্মুথ ফোকাস ও হাইলাইট লজিক (টেলিগ্রামের জন্য আপডেট করা)
 function init() {
     const topSlider = document.getElementById("topSlider");
     const codes = Object.keys(videos).slice(0, 15);
@@ -347,29 +344,29 @@ function init() {
     
     filterCat('all', document.querySelector('.cat-btn'));
 
-    // ইউআরএল বা টেলিগ্রাম প্যারামিটার থেকে কোড চেক করা
     const urlParams = new URLSearchParams(window.location.search);
     let codeFromUrl = urlParams.get('code');
 
-    // টেলিগ্রাম WebApp প্যারামিটার চেক
     try {
         if (window.Telegram && window.Telegram.WebApp) {
-            window.Telegram.WebApp.ready(); // ওয়েব অ্যাপ রেডি করা
+            window.Telegram.WebApp.ready();
+            window.Telegram.WebApp.expand(); // অ্যাপটিকে পূর্ণ স্ক্রিনে বড় করবে
             const tgParams = window.Telegram.WebApp.initDataUnsafe;
             if (tgParams && tgParams.start_param) {
                 codeFromUrl = tgParams.start_param;
             }
         }
-    } catch (e) { console.log("TG WebApp not detected"); }
+    } catch (e) { console.log("TG WebApp error"); }
     
     if (codeFromUrl && videos[codeFromUrl]) {
+        // ২.৫ সেকেন্ড সময় দেওয়া হলো যাতে সব কার্ড ঠিকমতো তৈরি হতে পারে
         setTimeout(() => {
             const targetCard = document.getElementById(`card-${codeFromUrl}`);
             if (targetCard) {
                 targetCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
                 targetCard.classList.add('highlight-card');
             }
-        }, 1000);
+        }, 2500); 
     }
 }
 
@@ -389,4 +386,4 @@ document.getElementById("searchInput").addEventListener("keyup", function() {
 init();
 </script>
 </body>
-</html>
+    </html>
