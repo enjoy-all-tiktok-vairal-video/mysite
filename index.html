@@ -7,59 +7,78 @@
     <meta name="theme-color" content="#050505">
     
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+        import { getDatabase, ref, runTransaction, onValue } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
+
+        const firebaseConfig = {
+            apiKey: "AIzaSyBHNlMGgJAl8gIrWl30n3MYqmxpQDUZ4rs",
+            authDomain: "enjoy-all-bot-data.firebaseapp.com",
+            projectId: "enjoy-all-bot-data",
+            storageBucket: "enjoy-all-bot-data.firebasestorage.app",
+            messagingSenderId: "731788215299",
+            appId: "1:731788215299:web:76eecfd79e78948133ba36",
+            databaseURL: "https://enjoy-all-bot-data-default-rtdb.firebaseio.com"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const db = getDatabase(app);
+        window.db = db;
+        window.ref = ref;
+        window.runTransaction = runTransaction;
+        window.onValue = onValue;
+    </script>
     
     <script>(function(s){s.dataset.zone='10679138',s.src='https://nap5k.com/tag.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>
+
     <script src='//libtl.com/sdk.js' data-zone='10480960' data-sdk='show_10480960'></script>
     <script src='//libtl.com/sdk.js' data-zone='10679278' data-sdk='show_10679278'></script>
     <script src='//libtl.com/sdk.js' data-zone='10679295' data-sdk='show_10679295'></script>
     
     <style>
-        /* আপনার আগের সব CSS এখানে হুবহু থাকবে */
-        body { 
-            margin: 0; background: #050505; font-family: 'Segoe UI', Arial, sans-serif; color: white; 
-            scroll-behavior: smooth; overflow-x: hidden; 
-            touch-action: pan-y;
-        }
+        body { margin: 0; background: #050505; font-family: 'Segoe UI', Arial, sans-serif; color: white; scroll-behavior: smooth; overflow-x: hidden; touch-action: pan-y; }
         .header { display: flex; justify-content: space-between; align-items: center; padding: 15px; background: rgba(10, 10, 10, 0.9); position: sticky; top: 0; z-index: 1000; backdrop-filter: blur(15px); border-bottom: 1px solid #222; }
         .logo { font-size: 22px; font-weight: bold; color: #ff0000; letter-spacing: 1px; text-shadow: 0 0 10px rgba(255,0,0,0.5); display: inline-block; animation: logoElastic 3.5s ease-in-out infinite; }
         @keyframes logoElastic { 0%, 100% { transform: scale(1); color: #ff0000; } 50% { transform: scale(1.15) rotate(-3deg); color: #ffffff; text-shadow: 0 0 20px #ff0000; } }
         .search { padding: 10px 15px; border-radius: 25px; border: 2.5px solid #333; background: #1a1a1a; color: white; width: 45%; outline: none; transition: 0.3s; animation: rainbowBorder 4s linear infinite; }
-        @keyframes rainbowBorder { 0% { border-color: #ff0000; box-shadow: 0 0 10px #ff0000; } 20% { border-color: #ffff00; box-shadow: 0 0 10px #ffff00; } 40% { border-color: #00ff00; box-shadow: 0 0 10px #00ff00; } 60% { border-color: #00ffff; box-shadow: 0 0 10px #00ffff; } 80% { border-color: #0000ff; box-shadow: 0 0 10px #0000ff; } 100% { border-color: #ff00ff; box-shadow: 0 0 10px #ff00ff; } }
+        @keyframes rainbowBorder { 0% { border-color: #ff0000; } 20% { border-color: #ffff00; } 40% { border-color: #00ff00; } 60% { border-color: #00ffff; } 80% { border-color: #0000ff; } 100% { border-color: #ff00ff; } }
         .container { padding: 15px; margin-bottom: 80px; }
         .section-title { font-size: 18px; margin: 25px 0 15px; border-left: 4px solid #ff0000; padding-left: 12px; font-weight: bold; text-transform: uppercase; letter-spacing: 1px; }
         .slider-container { display: flex; overflow-x: auto; gap: 15px; padding-bottom: 15px; scrollbar-width: none; }
-        .slider-container::-webkit-scrollbar { display: none; }
-        .slide-card { min-width: 135px; height: 195px; position: relative; border-radius: 12px; overflow: hidden; border: 1px solid #333; flex-shrink: 0; box-shadow: 0 5px 15px rgba(0,0,0,0.5); transition: 0.4s; }
+        .slide-card { min-width: 135px; height: 195px; position: relative; border-radius: 12px; overflow: hidden; border: 1px solid #333; flex-shrink: 0; box-shadow: 0 5px 15px rgba(0,0,0,0.5); }
         .slide-card img { width: 100%; height: 100%; object-fit: cover; }
         .slide-card .overlay { position: absolute; bottom: 0; width: 100%; background: linear-gradient(transparent, rgba(0,0,0,0.95)); padding: 25px 5px 10px; text-align: center; }
         .slide-card p { margin: 0; font-size: 11px; font-weight: bold; color: #fff; }
-        .cat-box { display: flex; gap: 12px; margin-bottom: 25px; overflow-x: auto; padding: 10px 5px; scrollbar-width: none; justify-content: flex-start; }
-        .cat-box::-webkit-scrollbar { display: none; }
-        .cat-btn { background: #111; color: #fff; padding: 10px 22px; border-radius: 30px; font-size: 13px; cursor: pointer; white-space: nowrap; transition: 0.4s; font-weight: 700; border: 2px solid #333; text-transform: uppercase; animation: catLighting 4s linear infinite; }
-        @keyframes catLighting { 0% { border-color: #ff0000; box-shadow: 0 0 10px #ff0000; } 25% { border-color: #ffff00; box-shadow: 0 0 10px #ffff00; } 50% { border-color: #00ff00; box-shadow: 0 0 10px #00ff00; } 75% { border-color: #00ffff; box-shadow: 0 0 10px #00ffff; } 100% { border-color: #ff0000; box-shadow: 0 0 10px #ff0000; } }
+        .cat-box { display: flex; gap: 12px; margin-bottom: 25px; overflow-x: auto; padding: 10px 5px; scrollbar-width: none; }
+        .cat-btn { background: #111; color: #fff; padding: 10px 22px; border-radius: 30px; font-size: 13px; cursor: pointer; white-space: nowrap; transition: 0.4s; font-weight: 700; border: 2px solid #333; text-transform: uppercase; }
         .cat-btn.active { background: #fff; color: #000; border-color: #fff; box-shadow: 0 0 20px #fff; transform: scale(1.08); }
         .video-grid { display: grid; grid-template-columns: 1fr; gap: 30px; max-width: 500px; margin: auto; }
-        .card { background: #121212; border-radius: 20px; overflow: hidden; border: 1px solid #252525; position: relative; transition: 0.4s; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
-        .highlight-card { border: 3px solid #ff0000 !important; animation: neonGlow 1.5s ease-in-out infinite alternate !important; z-index: 10; }
-        @keyframes neonGlow { from { box-shadow: 0 0 15px #ff0000, 0 0 30px #ff0000; } to { box-shadow: 0 0 25px #00ffff, 0 0 50px #00ffff; } }
-        .card-img-box { position: relative; height: 260px; overflow: hidden; }
+        .card { background: #121212; border-radius: 20px; overflow: hidden; border: 1px solid #252525; position: relative; box-shadow: 0 10px 30px rgba(0,0,0,0.5); }
+        .card-img-box { position: relative; height: 220px; overflow: hidden; }
         .card img { width: 100%; height: 100%; object-fit: cover; }
-        .card-info { padding: 20px; background: linear-gradient(to bottom, #121212, #0a0a0a); }
-        .card h3 { margin: 0 0 8px; font-size: 20px; font-weight: 700; color: #fff; }
-        .button { padding: 15px; background: linear-gradient(90deg, #ff0000, #800000); border: none; color: white; width: 100%; border-radius: 15px; font-size: 16px; font-weight: 800; cursor: pointer; transition: 0.3s; text-transform: uppercase; margin-bottom: 15px; }
-        #listTitle { text-align:center; font-size: 24px; font-weight: bold; animation: rainbowText 4s linear infinite; margin-top: 20px; }
-        @keyframes rainbowText { 0% { color: #ff0000; text-shadow: 0 0 10px #ff0000; } 50% { color: #00ff00; text-shadow: 0 0 10px #00ff00; } 100% { color: #ff0000; text-shadow: 0 0 10px #ff0000; } }
+        .card-info { padding: 15px; background: #121212; }
+        .card h3 { margin: 0 0 5px; font-size: 18px; font-weight: 700; color: #fff; }
+        
+        .meta-row { display: flex; justify-content: space-between; align-items: center; font-size: 11px; color: #888; margin-bottom: 10px; }
+        .id-badge { background: #1a1a1a; padding: 3px 8px; border-radius: 5px; border: 1px solid #333; color: #ff0000; cursor: pointer; font-weight: bold; }
+        .stats-bar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; padding: 8px 0; border-top: 1px solid #222; border-bottom: 1px solid #222; }
+        .stat-group { display: flex; gap: 15px; font-size: 12px; font-weight: bold; }
+        .stat-item { display: flex; align-items: center; gap: 4px; cursor: pointer; }
+        .stat-item.active-like { color: #00ff00; }
+        .stat-item.active-dis { color: #ff4444; }
+
+        .button { padding: 14px; background: linear-gradient(90deg, #ff0000, #800000); border: none; color: white; width: 100%; border-radius: 12px; font-size: 15px; font-weight: 800; cursor: pointer; text-transform: uppercase; margin-bottom: 12px; }
+        
         .share-row { display: flex; justify-content: center; gap: 8px; }
         .s-btn { flex: 1; padding: 10px 2px; font-size: 11px; font-weight: bold; border-radius: 8px; color: white; border: 2px solid transparent; cursor: pointer; animation: discoLight 3s infinite; }
         .btn-tt { background: #000; }
         .btn-fb { background: #1877F2; animation-delay: 0.5s; }
         .btn-wa { background: #25D366; animation-delay: 1s; }
-        @keyframes discoLight { 0%, 100% { transform: scale(1); filter: brightness(0.6); } 50% { transform: scale(1.08); filter: brightness(1.7); border-color: #fff; box-shadow: 0 0 15px #fff; } }
-        div[id^="prop-"], .monetag-push-container { position: fixed !important; left: 5px !important; right: auto !important; top: 75px !important; transform: scale(0.75) !important; transform-origin: top left !important; z-index: 9999 !important; }
+        @keyframes discoLight { 0%, 100% { filter: brightness(0.7); } 50% { filter: brightness(1.5); border-color: #fff; box-shadow: 0 0 10px #fff; } }
+
         .nav { position: fixed; bottom: 0; width: 100%; background: rgba(10, 10, 10, 0.95); display: flex; justify-content: space-around; padding: 15px 0; border-top: 1px solid #222; z-index: 1000; }
-        .nav a { color: #555; text-decoration: none; font-size: 12px; text-align: center; font-weight: 600; }
+        .nav a { color: #555; text-decoration: none; font-size: 12px; text-align: center; }
         .nav a.active { color: #ff0000; }
-        #searchResult { margin-bottom: 30px; display: none; }
     </style>
 </head>
 <body oncontextmenu="return false;">
@@ -81,41 +100,82 @@
         <button class="cat-btn" onclick="filterCat('tiktok', this)">TikTok Viral</button>
         <button class="cat-btn" onclick="filterCat('others', this)">Others Link</button>
     </div>
-    <h2 id="listTitle">ALL EPISODES</h2>
     <div class="video-grid" id="allVideos"></div>
 </div>
 
 <div class="nav">
-    <a href="index.html" class="active">🏠<br>Home</a>
-    <a href="browser.html">🌐<br>Browser</a>
-    <a href="profile.html">👤<br>Profile</a>
-    <a href="support.html">🛠<br>Support</a>
+    <a href="#" class="active">🏠<br>Home</a>
+    <a href="#">🌐<br>Browser</a>
+    <a href="#">👤<br>Profile</a>
+    <a href="#">🛠<br>Support</a>
 </div>
 
 <script>
-// --- আপনার আগের ডেটা এবং লজিক সব ঠিক আছে ---
-setInterval(() => {
-    let ads = document.querySelectorAll('div[id^="prop-"], .monetag-push-container');
-    ads.forEach(ad => {
-        ad.style.setProperty('left', '5px', 'important');
-        ad.style.setProperty('right', 'auto', 'important');
-    });
-}, 500);
-
+// --- CONFIGURATION ---
 const myDirectLink = "https://omg10.com/4/10547767";
+const botUrl = "https://t.me/enjoy420_bot/Enjoy_all"; // আপনার বটের লিঙ্ক
 
 const videos = {
-    // ... আপনার ভিডিও লিস্টের সব কোড এখানে থাকবে (আমি জায়গা বাঁচাতে সব লিখলাম না) ...
-    "0001095": { title: "Episode 198", image: "https://i.ibb.co/zVTgBQ79/poster.jpg", final: "https://t.me/vaiiralwathevideo_bot?start=c6e1c72e", cat: "all" },
-    "0001050": { title: "Episode 143", image: "https://i.ibb.co/8DsPZxpr/poster.jpg", final: "https://t.me/vaiiralwathevideo_bot?start=60579515", cat: "tiktok" }
-    // ... (বাকি ভিডিওগুলোও থাকবে) ...
+    "0001095": { title: "Episode 198", image: "https://i.ibb.co/zVTgBQ79/poster.jpg", final: "https://t.me/vaiiralwathevideo_bot?start=c6e1c72e", cat: "all", date: "28 Mar 2026", time: "03:45 PM" },
+    "0001050": { title: "Episode 143", image: "https://i.ibb.co/8DsPZxpr/poster.jpg", final: "https://t.me/vaiiralwathevideo_bot?start=60579515", cat: "tiktok", date: "28 Mar 2026", time: "01:20 PM" },
+    "0001006": { title: "Episode 99", image: "https://i.ibb.co/8gjVZLtR/poster.jpg", final: "https://t.me/Enjoyallvideo_bot?start=09a2db7f", cat: "all", date: "27 Mar 2026", time: "11:10 PM" }
 };
-
-const otherLinks = [{ title: "Join TikTok Viral Telegram", image: "https://i.ibb.co.com/ZRDM8V5T/Telegram-logo-svg.png", url: "https://t.me/tiktokvairalvideo2026" }];
 
 let adCounts = {};
 let currentZoneIndex = 0;
 const zoneIds = ['10480960', '10679278', '10679295'];
+
+const tg = window.Telegram.WebApp;
+tg.ready();
+tg.expand();
+
+// --- FUNCTIONS ---
+
+function checkStartParam() {
+    const startParam = tg.initDataUnsafe.start_param;
+    if (startParam) {
+        const searchInput = document.getElementById("searchInput");
+        searchInput.value = startParam;
+        triggerSearch(startParam);
+    }
+}
+
+function triggerSearch(val) {
+    const resultDiv = document.getElementById("searchResult");
+    if (videos[val]) {
+        resultDiv.style.display = "block";
+        resultDiv.innerHTML = `
+            <div class='card' style='border:2px solid #ff0000; margin-bottom:20px;'>
+                <div class='card-info'>
+                    <h3 style="color:#ff0000">⚡ Direct Link Found:</h3>
+                    <h3>${videos[val].title}</h3>
+                    <button class='button' onclick="startUnlock('${val}')" id="btn-${val}">🔒 UNLOCK NOW</button>
+                </div>
+            </div>`;
+        resultDiv.scrollIntoView({ behavior: 'smooth' });
+    }
+}
+
+function copyId(code) {
+    navigator.clipboard.writeText(code);
+    alert("ID: " + code + " Copied! ✅");
+}
+
+function handleVote(code, type) {
+    const key = `voted_${code}`;
+    const oldType = localStorage.getItem(key);
+    if (oldType === type) return;
+
+    window.runTransaction(window.ref(window.db, `stats/${code}`), (data) => {
+        if (!data) data = { l: 0, d: 0, v: 0, down: 0 };
+        if (oldType === 'like') data.l = Math.max(0, data.l - 1);
+        if (oldType === 'dislike') data.d = Math.max(0, data.d - 1);
+        if (type === 'like') data.l++;
+        if (type === 'dislike') data.d++;
+        return data;
+    });
+    localStorage.setItem(key, type);
+}
 
 function startUnlock(code) {
     if (!adCounts[code]) adCounts[code] = 3;
@@ -133,6 +193,11 @@ function handleAds(code, btn) {
     if (adCounts[code] > 0) {
         btn.innerText = `🔒 UNLOCK (${adCounts[code]} ADS LEFT)`;
     } else {
+        window.runTransaction(window.ref(window.db, `stats/${code}`), (data) => {
+            if (!data) data = { v: 0, down: 0, l: 0, d: 0 };
+            data.v++; data.down++;
+            return data;
+        });
         btn.innerText = "▶ PLAY VIDEO";
         btn.style.background = "linear-gradient(90deg, #28a745, #1e7e34)";
         btn.onclick = () => window.location.href = videos[code].final;
@@ -140,93 +205,82 @@ function handleAds(code, btn) {
 }
 
 function filterCat(type, btn) {
-    document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
+    if(btn){
+        document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+    }
     const grid = document.getElementById("allVideos");
     grid.innerHTML = "";
-    if (type === 'others') {
-        document.getElementById("listTitle").innerText = "OTHER LINKS";
-        otherLinks.forEach(item => {
-            grid.innerHTML += `<div class="card"><a href="${item.url}"><img src="${item.image}"></a><div class="card-info" style="text-align:center"><h3>${item.title}</h3><p>Click image to open</p></div></div>`;
-        });
-    } else {
-        document.getElementById("listTitle").innerText = type === 'all' ? "ALL EPISODES" : "TIKTOK VIRAL";
-        Object.keys(videos).forEach(code => {
-            if (type === 'all' || videos[code].cat === type) {
-                grid.innerHTML += `
-                <div class="card" id="card-${code}">
-                    <div class="card-img-box"><img src="${videos[code].image}"></div>
-                    <div class="card-info">
-                        <h3>${videos[code].title}</h3>
-                        <p>Code: ${code}</p>
-                        <button class="button" onclick="startUnlock('${code}')" id="btn-${code}">🔒 UNLOCK (3 ADS LEFT)</button>
-                        <div class="share-row">
-                            <button class="s-btn btn-tt" onclick="share('tt','${code}')">TikTok</button>
-                            <button class="s-btn btn-fb" onclick="share('fb','${code}')">Facebook</button>
-                            <button class="s-btn btn-wa" onclick="share('wa','${code}')">WhatsApp</button>
+    Object.keys(videos).forEach(code => {
+        if (type === 'all' || videos[code].cat === type) {
+            const userVote = localStorage.getItem(`voted_${code}`);
+            grid.innerHTML += `
+            <div class="card">
+                <div class="card-img-box"><img src="${videos[code].image}"></div>
+                <div class="card-info">
+                    <h3>${videos[code].title}</h3>
+                    <div class="meta-row">
+                        <span>📅 ${videos[code].date} | ${videos[code].time}</span>
+                        <span class="id-badge" onclick="copyId('${code}')"># ID: ${code} 📋</span>
+                    </div>
+                    <div class="stats-bar">
+                        <div class="stat-group">
+                            <div class="stat-item">👁️ <span id="v-${code}">0</span></div>
+                            <div class="stat-item">📥 <span id="dn-${code}">0</span></div>
+                        </div>
+                        <div class="stat-group">
+                            <div class="stat-item ${userVote==='like'?'active-like':''}" onclick="handleVote('${code}','like')">👍 <span id="l-${code}">0</span></div>
+                            <div class="stat-item ${userVote==='dislike'?'active-dis':''}" onclick="handleVote('${code}','dislike')">👎 <span id="d-${code}">0</span></div>
                         </div>
                     </div>
-                </div>`;
-            }
-        });
-    }
+                    <button class="button" onclick="startUnlock('${code}')" id="btn-${code}">🔒 UNLOCK (3 ADS LEFT)</button>
+                    <div class="share-row">
+                        <button class="s-btn btn-tt" onclick="share('tt','${code}')">Get Link</button>
+                        <button class="s-btn btn-fb" onclick="share('fb','${code}')">Facebook</button>
+                        <button class="s-btn btn-wa" onclick="share('wa','${code}')">WhatsApp</button>
+                    </div>
+                </div>
+            </div>`;
+            
+            window.onValue(window.ref(window.db, `stats/${code}`), (snap) => {
+                const val = snap.val();
+                if(val){
+                    document.getElementById(`v-${code}`).innerText = val.v || 0;
+                    document.getElementById(`dn-${code}`).innerText = val.down || 0;
+                    document.getElementById(`l-${code}`).innerText = val.l || 0;
+                    document.getElementById(`d-${code}`).innerText = val.d || 0;
+                }
+            });
+        }
+    });
 }
 
 function share(platform, code) {
-    const text = `ভিডিও কোড: ${code}। সাইট লিঙ্ক: ${window.location.origin}${window.location.pathname}?code=${code}`;
-    if(platform === 'wa') window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent(text)}`, '_blank');
-    if(platform === 'fb') window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(window.location.origin + window.location.pathname + '?code=' + code)}`, '_blank');
-    if(platform === 'tt') { navigator.clipboard.writeText(text); alert("লিঙ্ক কপি হয়েছে!"); }
+    const deepLink = `${botUrl}?startapp=${code}`;
+    const text = `ভিডিও কোড: ${code}\nনিচের লিঙ্কে ক্লিক করে ফুল ভিডিও দেখুন 👇\n${deepLink}`;
+    
+    if(platform === 'wa') window.open(`https://api.whatsapp.com/send?text=${encodeURIComponent(text)}`);
+    else if(platform === 'fb') window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(deepLink)}`);
+    else if(platform === 'tt') {
+        navigator.clipboard.writeText(deepLink).then(() => {
+            alert("টেলিগ্রাম ডিরেক্ট লিঙ্ক কপি হয়েছে! ✅");
+        });
+    }
 }
 
-// --- আপনার অনুরোধ করা টেলিগ্রাম বট ফাংশন এখানে এড করা হয়েছে ---
 function init() {
     const topSlider = document.getElementById("topSlider");
-    const codes = Object.keys(videos).slice(0, 15);
-    codes.forEach(code => {
-        topSlider.innerHTML += `
-        <div class="slide-card" onclick="startUnlock('${code}')">
-            <img src="${videos[code].image}">
-            <div class="overlay"><p>${videos[code].title}</p></div>
-        </div>`;
+    Object.keys(videos).slice(0, 15).forEach(code => {
+        topSlider.innerHTML += `<div class="slide-card" onclick="startUnlock('${code}')"><img src="${videos[code].image}"><div class="overlay"><p>${videos[code].title}</p></div></div>`;
     });
-    
     filterCat('all', document.querySelector('.cat-btn'));
-
-    // ১. টেলিগ্রাম ওয়েব অ্যাপ ইনিশিয়ালাইজেশন
-    const tg = window.Telegram.WebApp;
-    tg.ready();
-    tg.expand(); // অ্যাপটি পুরো স্ক্রিন জুড়ে ওপেন করবে
-
-    // ২. টেলিগ্রাম স্টার্ট প্যারামিটার বা ইউআরএল প্যারামিটার থেকে কোড নেওয়া
-    const startParam = tg.initDataUnsafe.start_param; 
-    const urlParams = new URLSearchParams(window.location.search);
-    const codeFromUrl = startParam || urlParams.get('code');
     
-    if (codeFromUrl && videos[codeFromUrl]) {
-        setTimeout(() => {
-            const targetCard = document.getElementById(`card-${codeFromUrl}`);
-            if (targetCard) {
-                targetCard.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                targetCard.classList.add('highlight-card');
-            }
-        }, 1200); // একটু সময় দিয়ে স্ক্রল হবে যাতে লোড কমপ্লিট থাকে
-    }
+    // টেলিগ্রাম প্যারামিটার চেক
+    checkStartParam();
 }
 
-document.addEventListener('touchstart', function(event) {
-    if (event.touches.length > 1) {
-        event.preventDefault();
-    }
-}, { passive: false });
-
 document.getElementById("searchInput").addEventListener("keyup", function() {
-    const val = this.value.trim().toUpperCase();
-    const resultDiv = document.getElementById("searchResult");
-    if (videos[val]) {
-        resultDiv.style.display = "block";
-        resultDiv.innerHTML = "<h3 style='text-align:center; color:#ffcc00;'>Search Result:</h3><div class='card'><div class='card-img-box'><img src='"+videos[val].image+"'></div><div class='card-info'><h3>"+videos[val].title+"</h3><p>Code: "+val+"</p><button class='button' onclick=\"startUnlock('"+val+"')\" id='btn-"+val+"'>🔒 UNLOCK (3 ADS LEFT)</button></div></div>";
-    } else { resultDiv.style.display = "none"; }
+    triggerSearch(this.value.trim().toUpperCase());
 });
 
 init();
