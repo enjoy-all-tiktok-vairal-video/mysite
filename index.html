@@ -437,22 +437,21 @@ function handleAppRouting() {
 
         // ২. ১.৫ সেকেন্ড অপেক্ষা করা যাতে ভিডিওগুলো রেন্ডার হতে পারে
         setTimeout(() => {
-            // প্রথমে সরাসরি সার্চ রেজাল্টে দেখানোর চেষ্টা
-            triggerSearch(cleanCode);
+            // নোট: triggerSearch(cleanCode) সরিয়ে দেওয়া হয়েছে যাতে অটোমেটিক সার্চ কার্ড উপরে না আসে।
 
-            // এবার যদি মেইন লিস্টে (Categories) থাকে, সেখানে স্ক্রল করা
+            // সরাসরি মেইন লিস্টে (Categories) ভিডিওটি খুঁজে সেখানে স্ক্রল করা
             const cardElement = document.getElementById(`card-${cleanCode}`);
             if (cardElement) {
                 cardElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
                 
-                // হাইলাইট এনিমেশন
+                // হাইলাইট এনিমেশন (বর্ডার এবং ফ্ল্যাশ)
                 cardElement.classList.remove('highlight-card');
                 setTimeout(() => cardElement.classList.add('highlight-card'), 100);
                 setTimeout(() => cardElement.classList.remove('highlight-card'), 10000);
             }
         }, 1500);
 
-        // কাজ শেষ! এখন URL ক্লিন করে ফেলা যাতে রিফ্রেশ করলে আবার আগের ভিডিও না আসে
+        // কাজ শেষ! এখন URL ক্লিন করে ফেলা যাতে রিফ্রেশ করলে আবার একই ভিডিও বারবার না আসে
         window.history.replaceState({}, document.title, window.location.pathname);
     }
 }
