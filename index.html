@@ -179,44 +179,7 @@ tg.expand();
 
 // --- FUNCTIONS ---
 
-function checkStartParam() {
-    const runScrollLogic = () => {
-        // ১. URL থেকে আইডি খুঁজে বের করা
-        const params = new URLSearchParams(window.location.search);
-        let startParam = params.get('tgWebAppStartParam') || tg.initDataUnsafe.start_param;
-        
-        if (startParam) {
-            const targetId = startParam.trim().toUpperCase();
-            
-            // ২. ১.৮ সেকেন্ড সময় দেওয়া হয়েছে যাতে ভিডিওগুলো রেন্ডার হতে পারে
-            setTimeout(() => {
-                const element = document.getElementById(`card-${targetId}`);
-                if (element) {
-                    // ৩. আগের হাইলাইট রিমুভ করে নতুন করে স্ক্রল এবং হাইলাইট করা
-                    element.classList.remove('highlight-card');
-                    
-                    element.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                    
-                    // রিফ্লো করার জন্য সামান্য গ্যাপ
-                    setTimeout(() => {
-                        element.classList.add('highlight-card');
-                    }, 100);
 
-                    // ৪. ১৫ সেকেন্ড পর হাইলাইট সরিয়ে নেওয়া
-                    setTimeout(() => {
-                        element.classList.remove('highlight-card');
-                    }, 15000); 
-                }
-            }, 1800); 
-        }
-    };
-
-    // প্রথমবার যখন অ্যাপ ওপেন হবে তখন চলবে
-    runScrollLogic();
-
-    // ইউজার যদি অ্যাপ খোলা অবস্থায় আবার নতুন লিংকে ক্লিক করে
-    tg.onEvent('viewportChanged', runScrollLogic); 
-}
 function triggerSearch(val) {
     const resultDiv = document.getElementById("searchResult");
     
@@ -442,7 +405,7 @@ function init() {
     }
     // ক্যাটাগরি লোড
     filterCat('all', document.querySelector('.cat-btn'));
-    checkStartParam();
+    
 }
 
 // মূল সমাধান: Firebase লোড হওয়া পর্যন্ত অপেক্ষা করা
@@ -452,37 +415,62 @@ let checkFirebase = setInterval(() => {
         init();
     }
 }, 500);
-// ব্রাউজার থেকে আসা কোডটি অটোমেটিক সার্চ এবং স্ক্রল করার জন্য
-window.addEventListener('load', function() {
+// --- স্মার্ট ন্যাভিগেশন লজিক (টেলিগ্রাম লিংক + ব্রাউজার লিংক) ---
+function handleAppRouting() {
     const urlParams = new URLSearchParams(window.location.search);
-    const browserCode = urlParams.get('code'); // ব্রাউজার থেকে আসা কোড
     
-    // টেলিগ্রাম লিংকের স্টার্ট প্যারামিটার চেক করা
-    let startParam = urlParams.get('tgWebAppStartParam') || (window.Telegram && window.Telegram.WebApp && window.Telegram.WebApp.initDataUnsafe ? window.Telegram.WebApp.initDataUnsafe.start_param : null);
+    // ১. ব্রাউজার পেজ থেকে আসা আইডি (সবচেয়ে বেশি প্রায়োরিটি)
+    const browserCode = urlParams.get('code');
+    
+    // ২. টেলিগ্রাম লিংক থেকে আসা আইডি
+    let startParam = urlParams.get('tgWebAppStartParam') || 
+                    (tg.initDataUnsafe && tg.initDataUnsafe.start_param ? tg.initDataUnsafe.start_param : null);
 
-    // অগ্রাধিকার (Priority): যদি ব্রাউজার থেকে কোনো কোড আসে তবে সেটাই আগে কাজ করবে
-    const finalCode = browserCode || startParam;
+    const targetCode = (browserCode || startParam);
 
-    if (finalCode) {
-        const targetId = finalCode.trim().toUpperCase();
-        
+    if (targetCode) {
+        const cleanCode = targetCode.trim().toUpperCase();
+
         // ১. সার্চ বক্সে কোডটি বসানো
-        document.getElementById('searchInput').value = targetId;
-        
-        // ২. ভিডিওটি খুঁজে বের করা
-        triggerSearch(targetId);
+        const searchInput = document.getElementById('searchInput');
+        if(searchInput) searchInput.value = cleanCode;
 
-        // ৩. স্ক্রল করার লজিক
+        // ২. ১.৫ সেকেন্ড অপেক্ষা করা যাতে ভিডিওগুলো রেন্ডার হতে পারে
         setTimeout(() => {
-            const searchResult = document.getElementById("searchResult");
-            if (searchResult && searchResult.style.display !== "none") {
-                searchResult.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                searchResult.firstElementChild.classList.add('highlight-card');
-            }
-        }, 1000);
+            // প্রথমে সরাসরি সার্চ রেজাল্টে দেখানোর চেষ্টা
+            triggerSearch(cleanCode);
 
-        // একবার কাজ হয়ে গেলে URL টা পরিষ্কার করে ফেলা যাতে বারবার একই ভিডিও না আসে
+            // এবার যদি মেইন লিস্টে (Categories) থাকে, সেখানে স্ক্রল করা
+            const cardElement = document.getElementById(`card-${cleanCode}`);
+            if (cardElement) {
+                cardElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                
+                // হাইলাইট এনিমেশন
+                cardElement.classList.remove('highlight-card');
+                setTimeout(() => cardElement.classList.add('highlight-card'), 100);
+                setTimeout(() => cardElement.classList.remove('highlight-card'), 10000);
+            }
+        }, 1500);
+
+        // কাজ শেষ! এখন URL ক্লিন করে ফেলা যাতে রিফ্রেশ করলে আবার আগের ভিডিও না আসে
         window.history.replaceState({}, document.title, window.location.pathname);
     }
+}
+
+// পেজ লোড হলে রান হবে
+window.addEventListener('load', () => {
+    // Firebase এবং ডাটাবেস লোড হওয়া পর্যন্ত ওয়েট করবে
+    let waitData = setInterval(() => {
+        if (window.db && typeof videos !== 'undefined') {
+            clearInterval(waitData);
+            handleAppRouting();
+        }
+    }, 500);
 });
+
+// ইউজারের ম্যানুয়াল সার্চ লজিক
+document.getElementById("searchInput").addEventListener("input", function() {
+    triggerSearch(this.value.trim().toUpperCase());
+});
+
 </script>
