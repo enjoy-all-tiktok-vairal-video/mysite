@@ -1,39 +1,181 @@
 <!DOCTYPE html>
 <html lang="bn">
 <head>
+  <script src="database.js"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Browser - ENJOY ALL</title>
+    <title>Browser - ENJOY ALL Premium</title>
     <style>
-        body { margin:0; background:#0d0d0d; color:white; font-family:Arial, sans-serif; }
-        .header { padding:15px; background:#111; position: sticky; top: 0; z-index: 100; text-align: center; border-bottom: 1px solid #222; }
-        .header h1 { margin: 0; font-size: 22px; color: #ff0000; text-transform: uppercase; letter-spacing: 2px; }
-        
-        /* সার্চ বক্স ডিজাইন */
-        .search-container { padding: 10px 15px; background: #0d0d0d; }
-        .search-box { width: 100%; padding: 12px; border-radius: 8px; border: 1px solid #333; background: #1a1a1a; color: white; box-sizing: border-box; outline: none; }
-        .search-box:focus { border-color: #ff0000; }
+        :root {
+            --primary-color: #ff0000;
+            --bg-dark: #050505;
+            --card-bg: #121212;
+            --glass: rgba(20, 20, 20, 0.8);
+        }
 
-        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; padding: 15px; margin-bottom: 80px; }
-        
-        /* ভিডিও আইটেম ডিজাইন */
-        .item { background: #1a1a1a; border-radius: 12px; overflow: hidden; border: 1px solid #222; cursor: pointer; position: relative; transition: 0.3s; }
-        .item:active { transform: scale(0.95); }
-        
-        .thumbnail-container { position: relative; width: 100%; height: 110px; }
-        .item img { width: 100%; height: 100%; object-fit: cover; display: block; }
-        
-        /* প্লে বাটন ওভারলে */
-        .play-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.3); display: flex; justify-content: center; align-items: center; }
-        .play-icon { width: 35px; height: 35px; background: rgba(255,0,0,0.8); border-radius: 50%; display: flex; justify-content: center; align-items: center; }
-        .play-icon::after { content: ''; border-top: 8px solid transparent; border-bottom: 8px solid transparent; border-left: 12px solid white; margin-left: 4px; }
+        body { 
+            margin:0; 
+            background: var(--bg-dark); 
+            color:white; 
+            font-family: 'Segoe UI', Roboto, sans-serif; 
+            padding-bottom: 90px;
+        }
 
-        .item p { text-align: center; padding: 10px; margin: 0; font-weight: bold; font-size: 13px; color: #eee; }
+        /* প্রিমিয়াম হেডার */
+        .header { 
+            padding: 18px; 
+            background: var(--glass); 
+            backdrop-filter: blur(10px);
+            position: sticky; 
+            top: 0; 
+            z-index: 1000; 
+            text-align: center; 
+            border-bottom: 1px solid #222;
+        }
+        .header h1 { 
+            margin: 0; 
+            font-size: 20px; 
+            color: var(--primary-color); 
+            text-transform: uppercase; 
+            letter-spacing: 3px;
+            font-weight: 800;
+            text-shadow: 0 0 10px rgba(255, 0, 0, 0.3);
+        }
+
+        /* সার্চ বক্স আরও সুন্দর */
+        .search-container { 
+            padding: 15px; 
+            background: var(--bg-dark); 
+            position: sticky; 
+            top: 60px; 
+            z-index: 900; 
+        }
+        .search-box { 
+            width: 100%; 
+            padding: 14px 20px; 
+            border-radius: 12px; 
+            border: 1px solid #333; 
+            background: #1a1a1a; 
+            color: white; 
+            box-sizing: border-box; 
+            outline: none; 
+            font-size: 15px;
+            transition: all 0.3s ease;
+        }
+        .search-box:focus { 
+            border-color: var(--primary-color); 
+            background: #222;
+            box-shadow: 0 0 15px rgba(255, 0, 0, 0.15);
+        }
+
+        /* ভিডিও গ্রিড */
+        .grid { 
+            display: grid; 
+            grid-template-columns: repeat(2, 1fr); 
+            gap: 15px; 
+            padding: 15px; 
+        }
         
-        /* নেভিগেশন */
-        .nav { position: fixed; bottom: 0; width: 100%; background: #111; display: flex; justify-content: space-around; padding: 15px 0; border-top: 1px solid #222; z-index: 100; }
-        .nav a { color: white; text-decoration: none; font-size: 14px; opacity: 0.7; }
-        .nav a.active { opacity: 1; color: #ff0000; font-weight: bold; }
+        /* কার্ড ডিজাইন */
+        .item { 
+            background: var(--card-bg); 
+            border-radius: 15px; 
+            overflow: hidden; 
+            border: 1px solid #222; 
+            cursor: pointer; 
+            position: relative; 
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .item:active { transform: scale(0.92); }
+        
+        .thumbnail-container { 
+            position: relative; 
+            width: 100%; 
+            height: 120px; 
+            overflow: hidden;
+        }
+        .item img { 
+            width: 100%; 
+            height: 100%; 
+            object-fit: cover; 
+            display: block;
+            transition: 0.5s;
+        }
+        .item:hover img { transform: scale(1.1); }
+        
+        /* প্রিমিয়াম প্লে বাটন */
+        .play-overlay { 
+            position: absolute; 
+            top: 0; left: 0; width: 100%; height: 100%; 
+            background: rgba(0,0,0,0.4); 
+            display: flex; justify-content: center; align-items: center; 
+            opacity: 1; transition: 0.3s;
+        }
+        .play-icon { 
+            width: 40px; height: 40px; 
+            background: var(--primary-color); 
+            border-radius: 50%; 
+            display: flex; justify-content: center; align-items: center; 
+            box-shadow: 0 0 15px rgba(255, 0, 0, 0.5);
+        }
+        .play-icon::after { 
+            content: ''; 
+            border-top: 8px solid transparent; 
+            border-bottom: 8px solid transparent; 
+            border-left: 12px solid white; 
+            margin-left: 4px; 
+        }
+
+        .item p { 
+            text-align: center; 
+            padding: 12px 5px; 
+            margin: 0; 
+            font-weight: 600; 
+            font-size: 13px; 
+            color: #ddd;
+            background: linear-gradient(to bottom, #1a1a1a, #121212);
+        }
+        
+        /* প্রিমিয়াম নেভিগেশন বার */
+        .nav { 
+            position: fixed; 
+            bottom: 0; 
+            width: 100%; 
+            background: rgba(15, 15, 15, 0.9); 
+            backdrop-filter: blur(15px);
+            display: flex; 
+            justify-content: space-around; 
+            padding: 12px 0; 
+            border-top: 1px solid #333; 
+            z-index: 2000; 
+        }
+        .nav a { 
+            color: #777; 
+            text-decoration: none; 
+            font-size: 11px; 
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            transition: 0.3s;
+        }
+        .nav a.active { color: var(--primary-color); font-weight: bold; }
+        .nav a i { font-size: 20px; margin-bottom: 2px; }
+
+        /* গোল্ডেন রেড বর্ডার এনিমেশন (Optional) */
+        .item::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            border-radius: 15px;
+            padding: 1.5px;
+            background: linear-gradient(45deg, #ff0000, #ffd700);
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            opacity: 0.3;
+        }
     </style>
 </head>
 <body>
@@ -43,166 +185,67 @@
     </div>
 
     <div class="search-container">
-        <input type="text" id="browserSearch" class="search-box" placeholder="ভিডিওর নাম বা কোড খুঁজুন...">
+        <input type="text" id="browserSearch" class="search-box" placeholder="সার্চ করুন (নাম বা কোড)...">
     </div>
 
     <div class="grid" id="videoGrid">
         </div>
 
     <div class="nav">
-        <a href="index.html">🏠 Home</a>
-        <a href="browser.html" class="active">🌐 Browser</a>
-        <a href="profile.html">👤 Profile</a>
-        <a href="support.html">🛠 Support</a>
+        <a href="index.html"><i>🏠</i><span>Home</span></a>
+        <a href="browser.html" class="active"><i>🌐</i><span>Browser</span></a>
+        <a href="profile.html"><i>👤</i><span>Profile</span></a>
+        <a href="support.html"><i>🛠</i><span>Support</span></a>
     </div>
 
     <script>
-        // ভিডিও লিস্ট (আপনার index.html এর মতই হুবহু রাখবেন)
-        const videos = {
-            "0008865": { title: "Episode 40", image: "https://i.ibb.co/8gjVZLtR/poster.jpg" },
-            "0008867": { title: "Episode 41", image: "https://i.ibb.co/8gjVZLtR/poster.jpg" },
-            "0008868": { title: "Episode 42", image: "https://i.ibb.co/8gjVZLtR/poster.jpg" },
-            "0008869": { title: "Episode 43", image: "https://i.ibb.co/8gjVZLtR/poster.jpg" },
-            "0008849": { title: "Episode 47", image: "https://i.ibb.co./jZz96Z1k/poster.jpg"},
-            "0008848": { title: "Episode 48", image: "https://i.ibb.co./bDcMcd8/poster.jpg"},
-            "0008866": { title: "Episode 49", image: "https://i.ibb.co/8gjVZLtR/poster.jpg"},
-            "0008864": { title: "Episode 50", image: "https://i.ibb.co/8gjVZLtR/poster.jpg"},
-            "0008863": { title: "Episode 51", image: "https://i.ibb.co/8gjVZLtR/poster.jpg"},
-            "0008862": { title: "Episode 52", image: "https://i.ibb.co/8gjVZLtR/poster.jpg"},
-            "0008870": { title: "Episode 53", image: "https://i.ibb.co/pjRCMbHm/poster.jpg"},
-            "0008871": { title: "Episode 54", image: "https://i.ibb.co/KxQJfQhY/poster.jpg"},
-            "0008872": { title: "Episode 55", image: "https://i.ibb.co/My6Wkk5x/poster.jpg"},
-            "0008873": { title: "Episode 56", image: "https://i.ibb.co/8gjVZLtR/poster.jpg"},
-            "0008874": { title: "Episode 57", image: "https://i.ibb.co/8gjVZLtR/poster.jpg"},
-            "0008875": { title: "Episode 58", image: "https://i.ibb.co/8gjVZLtR/poster.jpg"},
-            "0008876": { title: "Episode 59", image: "https://i.ibb.co/ZRBsJW3y/poster.jpg"},
-            "0008877": { title: "Episode 60", image: "https://i.ibb.co/fdtJ8cQT/poster.jpg"},
-            "0008878": { title: "Episode 61", image: "https://i.ibb.co/6cHjhHP9/poster.png"},
-            "0008879": { title: "Episode 62", image: "https://i.ibb.co/SXSPWB1c/poster.png"},
-            "0008880": { title: "Episode 63", image: "https://i.ibb.co/8gjVZLtR/poster.jpg"},
-            "0008881": { title: "Episode 64", image: "https://i.ibb.co/Gf3NwnD0/poster.png"},
-            "0008882": { title: "Episode 65", image: "https://i.ibb.co/8gjVZLtR/poster.jpg"},
-            "0008883": { title: "Episode 66", image: "https://i.ibb.co/LXXZgp04/poster.jpg"},
-            "0008884": { title: "Episode 67", image: "https://i.ibb.co/8gjVZLtR/poster.jpg"},
-            "0008885": { title: "Episode 68", image: "https://i.ibb.co/8gjVZLtR/poster.jpg"},
-            "0008886": { title: "Episode 69", image: "https://i.ibb.co/8gjVZLtR/poster.jpg"},
-            "0008887": { title: "Episode 70", image: "https://i.ibb.co/8gjVZLtR/poster.jpg"},
-            "0008888": { title: "Episode 71", image: "https://i.ibb.co/8gjVZLtR/poster.jpg"},
-            "0008889": { title: "Episode 72", image: "https://i.ibb.co/8gjVZLtR/poster.jpg"},
-            "0000895": { title: "Episode 78", image: "https://i.ibb.co/chCwVnPF/poster.jpg" },
-            "0000894": { title: "Episode 77", image: "https://i.ibb.co/XfkFNBWc/poster.jpg" },
-            "0000893": { title: "Episode 76", image: "https://i.ibb.co/8gjVZLtR/poster.jpg" },
-            "0000892": { title: "Episode 75", image: "https://i.ibb.co/B2DkDG52/poster.jpg" },
-            "0000891": { title: "Episode 74", image: "https://i.ibb.co/HDN5S5jQ/poster.jpg" },
-            "0000890": { title: "Episode 73", image: "https://i.ibb.co/q3SvNyzW/poster.jpg" },
-            "0000900": { title: "Episode 83", image: "https://i.ibb.co/BHSwymG6/poster.jpg" },
-            "0000899": { title: "Episode 82", image: "https://i.ibb.co/Rpv1wY0W/poster.jpg" },
-            "0000898": { title: "Episode 81", image: "https://i.ibb.co/tMbZCSSN/poster.jpg" },
-            "0000897": { title: "Episode 80", image: "https://i.ibb.co/jPTVYp15/poster.jpg" },
-            "0000896": { title: "Episode 79", image: "https://i.ibb.co/FbXkst8d/poster.jpg" },
-            "0000992": { title: "Episode 85", image: "https://i.ibb.co/8gjVZLtR/poster.jpg" },
-            "0000991": { title: "Episode 84", image: "https://i.ibb.co/8gjVZLtR/poster.jpg" },
-            "0000993": { title: "Episode 87", image: "https://i.ibb.co/8gjVZLtR/poster.jpg" },
-            "0000994": { title: "Episode 86", image: "https://i.ibb.co/8gjVZLtR/poster.jpg" },
-            "0000997": { title: "Episode 90", image: "https://i.ibb.co/8gjVZLtR/poster.jpg" },
-            "0000996": { title: "Episode 89", image: "https://i.ibb.co/8gjVZLtR/poster.jpg" },
-            "0000995": { title: "Episode 88", image: "https://i.ibb.co/8gjVZLtR/poster.jpg" },
-            "0001008": { title: "Episode 101", image: "https://i.ibb.co/8gjVZLtR/poster.jpg" },
-            "0001007": { title: "Episode 100", image: "https://i.ibb.co/8gjVZLtR/poster.jpg" },
-            "0001006": { title: "Episode 99", image: "https://i.ibb.co/8gjVZLtR/poster.jpg" },
-            "0001005": { title: "Episode 98", image: "https://i.ibb.co/8gjVZLtR/poster.jpg" },
-            "0001004": { title: "Episode 97", image: "https://i.ibb.co/8gjVZLtR/poster.jpg" },
-            "0001003": { title: "Episode 96", image: "https://i.ibb.co/8gjVZLtR/poster.jpg" },
-            "0001002": { title: "Episode 95", image: "https://i.ibb.co/8gjVZLtR/poster.jpg" },
-            "0001001": { title: "Episode 94", image: "https://i.ibb.co/8gjVZLtR/poster.jpg" },
-            "0001000": { title: "Episode 93", image: "https://i.ibb.co/8gjVZLtR/poster.jpg" },
-            "0000999": { title: "Episode 92", image: "https://i.ibb.co/8gjVZLtR/poster.jpg" },
-            "0000998": { title: "Episode 91", image: "https://i.ibb.co/8gjVZLtR/poster.jpg" },
-            "0001016": { title: "Episode 109", image: "https://i.ibb.co/8Lqd2rFR/poster.jpg" },
-            "0001015": { title: "Episode 108", image: "https://i.ibb.co/8gjVZLtR/poster.jpg" },
-            "0001014": { title: "Episode 107", image: "https://i.ibb.co/8gjVZLtR/poster.jpg" },
-            "0001013": { title: "Episode 106", image: "https://i.ibb.co/8gjVZLtR/poster.jpg" },
-            "0001012": { title: "Episode 105", image: "https://i.ibb.co/My33TKhn/poster.jpg" },
-            "0001011": { title: "Episode 104", image: "https://i.ibb.co/8gjVZLtR/poster.jpg" },
-            "0001010": { title: "Episode 103", image: "https://i.ibb.co/8gjVZLtR/poster.jpg" },
-            "0001009": { title: "Episode 102", image: "https://i.ibb.co/Rp0h01PG/poster.jpg" },
-            "0001017": { title: "Episode 110", image: "https://i.ibb.co/8gjVZLtR/poster.jpg" },
-            "0001047": { title: "Episode 140", image: "https://i.ibb.co/8gjVZLtR/poster.jpg" },
-            "0001046": { title: "Episode 139", image: "https://i.ibb.co/8gjVZLtR/poster.jpg" },
-            "0001045": { title: "Episode 138", image: "https://i.ibb.co/8gjVZLtR/poster.jpg" },
-            "0001044": { title: "Episode 137", image: "https://i.ibb.co/8gjVZLtR/poster.jpg" },
-            "0001043": { title: "Episode 136", image: "https://i.ibb.co/8gjVZLtR/poster.jpg" },
-            "0001042": { title: "Episode 135", image: "https://i.ibb.co/8gjVZLtR/poster.jpg" },
-            "0001041": { title: "Episode 134", image: "https://i.ibb.co/8gjVZLtR/poster.jpg" },
-            "0001040": { title: "Episode 133", image: "https://i.ibb.co/8gjVZLtR/poster.jpg" },
-            "0001039": { title: "Episode 132", image: "https://i.ibb.co/8gjVZLtR/poster.jpg" },
-            "0001038": { title: "Episode 131", image: "https://i.ibb.co/8gjVZLtR/poster.jpg" },
-            "0001037": { title: "Episode 130", image: "https://i.ibb.co/8gjVZLtR/poster.jpg" },
-            "0001036": { title: "Episode 129", image: "https://i.ibb.co/8gjVZLtR/poster.jpg" },
-            "0001035": { title: "Episode 128", image: "https://i.ibb.co/8gjVZLtR/poster.jpg" },
-            "0001034": { title: "Episode 127", image: "https://i.ibb.co/8gjVZLtR/poster.jpg" },
-            "0001033": { title: "Episode 126", image: "https://i.ibb.co/8gjVZLtR/poster.jpg" },
-            "0001032": { title: "Episode 125", image: "https://i.ibb.co/8gjVZLtR/poster.jpg" },
-            "0001031": { title: "Episode 124", image: "https://i.ibb.co/8gjVZLtR/poster.jpg" },
-            "0001030": { title: "Episode 123", image: "https://i.ibb.co/8gjVZLtR/poster.jpg" },
-            "0001029": { title: "Episode 122", image: "https://i.ibb.co/8gjVZLtR/poster.jpg" },
-            "0001028": { title: "Episode 121", image: "https://i.ibb.co/8gjVZLtR/poster.jpg" },
-            "0001027": { title: "Episode 120", image: "https://i.ibb.co/8gjVZLtR/poster.jpg" },
-            "0001026": { title: "Episode 119", image: "https://i.ibb.co/8gjVZLtR/poster.jpg" },
-            "0001025": { title: "Episode 118", image: "https://i.ibb.co/8gjVZLtR/poster.jpg" },
-            "0001024": { title: "Episode 117", image: "https://i.ibb.co/8gjVZLtR/poster.jpg" },
-            "0001023": { title: "Episode 116", image: "https://i.ibb.co/8gjVZLtR/poster.jpg" },
-            "0001022": { title: "Episode 115", image: "https://i.ibb.co/8gjVZLtR/poster.jpg" },
-            "0001021": { title: "Episode 114", image: "https://i.ibb.co/8gjVZLtR/poster.jpg" },
-            "0001020": { title: "Episode 113", image: "https://i.ibb.co/8gjVZLtR/poster.jpg" },
-            "0001019": { title: "Episode 112", image: "https://i.ibb.co/8gjVZLtR/poster.jpg" },
-            "0001018": { title: "Episode 111", image: "https://i.ibb.co/8gjVZLtR/poster.jpg" },
-            "0001050": { title: "Episode 143", image: "https://i.ibb.co/8DsPZxpr/poster.jpg" },
-            "0001049": { title: "Episode 142", image: "https://i.ibb.co/7dL8zsMY/poster.jpg" },
-            "0001048": { title: "Episode 141", image: "https://i.ibb.co/ymRHLmm6/poster.jpg" },
-            "0001059": { title: "Episode 152", image: "https://i.ibb.co/8gjVZLtR/poster.jpg" },
-            "0001058": { title: "Episode 151", image: "https://i.ibb.co/8gjVZLtR/poster.jpg" },
-            "0001057": { title: "Episode 150", image: "https://i.ibb.co/8gjVZLtR/poster.jpg" },
-            "0001056": { title: "Episode 149", image: "https://i.ibb.co/8gjVZLtR/poster.jpg" },
-            "0001055": { title: "Episode 148", image: "https://i.ibb.co/8gjVZLtR/poster.jpg" },
-            "0001054": { title: "Episode 147", image: "https://i.ibb.co/8gjVZLtR/poster.jpg" },
-            "0001053": { title: "Episode 146", image: "https://i.ibb.co/8gjVZLtR/poster.jpg" },
-            "0001052": { title: "Episode 145", image: "https://i.ibb.co/8gjVZLtR/poster.jpg" },
-            "0001051": { title: "Episode 144", image: "https://i.ibb.co/8gjVZLtR/poster.jpg" }
+    function displayBrowserVideos(filter = "") {
+        const grid = document.getElementById("videoGrid");
+        if (!grid) return; // গ্রিড না থাকলে ফাংশন বন্ধ হবে
+        
+        grid.innerHTML = "";
 
-            // ভবিষ্যতে নতুন ভিডিও যোগ করলে এখানে এক লাইন বাড়িয়ে দেবেন
-        };
-
-        function displayBrowserVideos(filter = "") {
-            const grid = document.getElementById("videoGrid");
-            grid.innerHTML = "";
-
-            Object.keys(videos).forEach(code => {
-                const v = videos[code];
-                // সার্চ ফিল্টার চেক
-                if (code.toLowerCase().includes(filter.toLowerCase()) || v.title.toLowerCase().includes(filter.toLowerCase())) {
-                    grid.innerHTML += `
-                        <div class="item" onclick="location.href='index.html?code=${code}'">
-                            <div class="thumbnail-container">
-                                <img src="${v.image}" alt="${v.title}">
-                                <div class="play-overlay">
-                                    <div class="play-icon"></div>
-                                </div>
-                            </div>
-                            <p>${code}</p>
-                        </div>
-                    `;
-                }
-            });
+        // videos ডাটাবেসটি আছে কি না চেক করে নেওয়া
+        if (typeof videos === 'undefined') {
+            grid.innerHTML = "<p style='text-align:center; width:100%; color:red;'>Database error! Please wait...</p>";
+            return;
         }
 
-        // সার্চ ইনপুট ইভেন্ট
-        document.getElementById("browserSearch").addEventListener("input", function() {
-            displayBrowserVideos(this.value);
-        });
+        Object.keys(videos).forEach(code => {
+            const v = videos[code];
+            if (code.toLowerCase().includes(filter.toLowerCase()) || v.title.toLowerCase().includes(filter.toLowerCase())) {
+                const item = document.createElement("div");
+                item.className = "item";
+                item.onclick = function() {
+                    window.location.href = `index.html?code=${code}`;
+                };
 
-        // প্রথমবার লোড করার সময় সব ভিডিও দেখাও
-        displayBrowserVideos();
-    </script>
+                item.innerHTML = `
+                    <div class="thumbnail-container">
+                        <img src="${v.image}" alt="${v.title}">
+                        <div class="play-overlay">
+                            <div class="play-icon"></div>
+                        </div>
+                    </div>
+                    <p>Code: ${code}</p>
+                `;
+                grid.appendChild(item);
+            }
+        });
+    }
+
+    // সার্চ বক্সের লজিক
+    document.getElementById("browserSearch").addEventListener("input", function() {
+        displayBrowserVideos(this.value);
+    });
+
+    // পেজ লোড হওয়ার পর ডাটা দেখানো
+    window.onload = function() {
+        // ছোট একটি টাইমআউট দেওয়া হয়েছে যাতে database.js পুরোপুরি কানেক্ট হতে পারে
+        setTimeout(() => {
+            displayBrowserVideos();
+        }, 300);
+    };
+</script>
 </body>
 </html>
