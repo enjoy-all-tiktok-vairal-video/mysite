@@ -191,26 +191,23 @@ function checkStartParam() {
     if (startParam) {
         const targetId = startParam.trim().toUpperCase();
         
-        // সার্চ বক্সে আইডি বসানো এবং সার্চ ট্রিগার করা
-        document.getElementById("searchInput").value = targetId;
-        triggerSearch(targetId);
-        
-        // ১.২ সেকেন্ড পর অটোমেটিক স্ক্রল এবং হাইলাইট করা
         setTimeout(() => {
             const element = document.getElementById(`card-${targetId}`);
             if (element) {
+                // ভিডিওর কাছে নিয়ে যাবে
                 element.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                
+                // হাইলাইট শুরু হবে
                 element.classList.add('highlight-card');
                 
-                // ৫ সেকেন্ড পর হাইলাইট সরিয়ে নেওয়া
+                // ১৫ সেকেন্ড (১৫০০০ মিলিসেকেন্ড) পর হাইলাইট বন্ধ হবে
                 setTimeout(() => {
                     element.classList.remove('highlight-card');
-                }, 5000);
+                }, 15000); 
             }
-        }, 1200); 
+        }, 1500); 
     }
-}
-
+    }
 function triggerSearch(val) {
     const resultDiv = document.getElementById("searchResult");
     const searchVal = val.trim().toUpperCase();
