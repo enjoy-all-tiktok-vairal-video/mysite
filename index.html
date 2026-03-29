@@ -250,12 +250,21 @@ function handleVote(code, type) {
 function startUnlock(code) {
     if (!adCounts[code]) adCounts[code] = 3;
     const btn = document.getElementById(`btn-${code}`) || document.getElementById(`btn-s-${code}`);
+    
+    // ২য় ক্লিকে ডাইরেক্ট লিংক ওপেন করা
     if (adCounts[code] === 2) window.open(myDirectLink, '_blank');
+
     const activeZone = zoneIds[currentZoneIndex];
     currentZoneIndex = (currentZoneIndex + 1) % zoneIds.length;
+
+    // মেইন ফিক্স: অ্যাড লোড না হলেও যেন কাজ করে
     if (typeof window[`show_${activeZone}`] === 'function') {
-        window[`show_${activeZone}`]().then(() => handleAds(code, btn)).catch(() => handleAds(code, btn));
-    } else { handleAds(code, btn); }
+        window[`show_${activeZone}`]()
+            .then(() => handleAds(code, btn))
+            .catch(() => handleAds(code, btn)); 
+    } else { 
+        handleAds(code, btn); 
+    }
 }
 
 function handleAds(code, btn) {
@@ -263,18 +272,24 @@ function handleAds(code, btn) {
     if (adCounts[code] > 0) {
         btn.innerText = `🔒 UNLOCK (${adCounts[code]} ADS LEFT)`;
     } else {
+        // ডাটাবেসে ভিউ এবং ডাউনলোড আপডেট
         if(window.db) {
             window.runTransaction(window.ref(window.db, `stats/${code}`), (data) => {
                 if (!data) data = { v: 0, down: 0, l: 0, d: 0 };
-                data.v++; data.down++;
+                data.v = (data.v || 0) + 1;
+                data.down = (data.down || 0) + 1;
                 return data;
             });
         }
         btn.innerText = "▶ PLAY VIDEO";
         btn.style.background = "linear-gradient(90deg, #28a745, #1e7e34)";
-        btn.onclick = () => window.location.href = videos[code].final;
+        btn.onclick = () => {
+            window.location.href = videos[code].final;
+        };
     }
 }
+
+
 
 function filterCat(type, btn) {
     if(btn){
