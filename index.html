@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="bn">
 <head>
+  <script src="database.js"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>ENJOY ALL - Home</title>
@@ -168,12 +169,6 @@
 const myDirectLink = "https://omg10.com/4/10547767";
 const botUrl = "https://t.me/enjoy420_bot/Enjoy_all"; 
 
-const videos = {
-    "0001095": { title: "Episode 198", image: "https://i.ibb.co/zVTgBQ79/poster.jpg", final: "https://t.me/vaiiralwathevideo_bot?start=c6e1c72e", cat: "all", date: "28 Mar 2026", time: "03:45 PM" },
-    "0001050": { title: "Episode 143", image: "https://i.ibb.co/8DsPZxpr/poster.jpg", final: "https://t.me/vaiiralwathevideo_bot?start=60579515", cat: "tiktok", date: "28 Mar 2026", time: "01:20 PM" },
-    "0001006": { title: "Episode 99", image: "https://i.ibb.co/8gjVZLtR/poster.jpg", final: "https://t.me/Enjoyallvideo_bot?start=09a2db7f", cat: "all", date: "27 Mar 2026", time: "11:10 PM" }
-};
-
 let adCounts = {};
 let currentZoneIndex = 0;
 const zoneIds = ['10480960', '10679278', '10679295'];
@@ -224,6 +219,10 @@ function checkStartParam() {
 }
 function triggerSearch(val) {
     const resultDiv = document.getElementById("searchResult");
+    
+    // ভিডিও ডাটাবেস লোড হয়েছে কি না চেক
+    if (typeof videos === 'undefined') return;
+
     const searchVal = val.trim().toUpperCase();
     
     if (!searchVal || !videos[searchVal]) {
@@ -233,16 +232,20 @@ function triggerSearch(val) {
 
     resultDiv.style.display = "block";
     const v = videos[searchVal];
-    const userVote = localStorage.getItem(`voted_${searchVal}`);
+    
+    // শেয়ার লিংক তৈরি
+    const shareLink = `${botUrl}?startapp=${searchVal}`;
+    const fbUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareLink)}`;
+    const waUrl = `https://api.whatsapp.com/send?text=${encodeURIComponent(shareLink)}`;
 
     resultDiv.innerHTML = `
-        <div class='card' style='border:2px solid #ff0000; margin-bottom:30px;'>
+        <div class='card' style='border:2px solid #ff0000; margin-bottom:30px; box-shadow: 0 0 15px rgba(255,0,0,0.3);'>
             <div class="card-img-box"><img src="${v.image}"></div>
             <div class='card-info'>
-                <h3 style="color:#ff0000; font-size:14px;">⚡ DIRECT MATCH FOUND</h3>
+                <h3 style="color:#ff0000; font-size:13px; letter-spacing:1px;">⚡ DIRECT MATCH FOUND</h3>
                 <h3>${v.title}</h3>
                 <div class="meta-row">
-                    <span>📅 ${v.date}</span>
+                    <span>📅 ${v.date || 'New'}</span>
                     <span class="id-badge" onclick="copyId('${searchVal}')"># ID: ${searchVal} 📋</span>
                 </div>
                 <div class="stats-bar">
@@ -252,6 +255,12 @@ function triggerSearch(val) {
                     </div>
                 </div>
                 <button class='button' onclick="startUnlock('${searchVal}')" id="btn-s-${searchVal}">🔒 UNLOCK NOW</button>
+                
+                <div class="share-row">
+                    <button class="s-btn btn-link" onclick="copyLink('${searchVal}')">Get Link</button>
+                    <button class="s-btn btn-fb" onclick="openShare('${fbUrl}')">Facebook</button>
+                    <button class="s-btn btn-wa" onclick="openShare('${waUrl}')">WhatsApp</button>
+                </div>
             </div>
         </div>`;
 
@@ -264,6 +273,9 @@ function triggerSearch(val) {
             }
         });
     }
+    
+    // সার্চ পাওয়ার পর পেজটি হালকা স্ক্রল করে রেজাল্টে নিয়ে যাবে
+    resultDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
 }
 
 function copyId(code) {
@@ -440,7 +452,15 @@ let checkFirebase = setInterval(() => {
         init();
     }
 }, 500);
-
+// ব্রাউজার থেকে আসা কোডটি অটোমেটিক সার্চ করার জন্য
+window.addEventListener('load', function() {
+    const urlParams = new URLSearchParams(window.location.search);
+    const code = urlParams.get('code');
+    if (code) {
+        document.getElementById('searchInput').value = code;
+        triggerSearch(code); // এটি সরাসরি ভিডিওটি সামনে নিয়ে আসবে
+    }
+});
 document.getElementById("searchInput").addEventListener("keyup", function() {
     triggerSearch(this.value.trim().toUpperCase());
 });
