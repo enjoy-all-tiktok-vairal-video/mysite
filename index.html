@@ -118,6 +118,17 @@
     .nav { position: fixed; bottom: 0; width: 100%; background: rgba(10, 10, 10, 0.95); display: flex; justify-content: space-around; padding: 15px 0; border-top: 1px solid #222; z-index: 1000; }
     .nav a { color: #555; text-decoration: none; font-size: 12px; text-align: center; }
     .nav a.active { color: #ff0000; }
+    .highlight-card {
+    animation: flashHighlight 2s ease-out;
+    border: 3px solid #ff0000 !important;
+    box-shadow: 0 0 20px #ff0000 !important;
+}
+
+@keyframes flashHighlight {
+    0% { transform: scale(1); background: #ff0000; }
+    50% { transform: scale(1.05); background: #121212; }
+    100% { transform: scale(1); }
+}
 </style>
 </head>
 <body oncontextmenu="return false;">
@@ -174,10 +185,29 @@ tg.expand();
 // --- FUNCTIONS ---
 
 function checkStartParam() {
-    const startParam = tg.initDataUnsafe.start_param;
+    const params = new URLSearchParams(window.location.search);
+    const startParam = params.get('tgWebAppStartParam') || tg.initDataUnsafe.start_param;
+    
     if (startParam) {
-        document.getElementById("searchInput").value = startParam;
-        triggerSearch(startParam);
+        const targetId = startParam.trim().toUpperCase();
+        
+        // সার্চ বক্সে আইডি বসানো এবং সার্চ ট্রিগার করা
+        document.getElementById("searchInput").value = targetId;
+        triggerSearch(targetId);
+        
+        // ১.২ সেকেন্ড পর অটোমেটিক স্ক্রল এবং হাইলাইট করা
+        setTimeout(() => {
+            const element = document.getElementById(`card-${targetId}`);
+            if (element) {
+                element.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                element.classList.add('highlight-card');
+                
+                // ৫ সেকেন্ড পর হাইলাইট সরিয়ে নেওয়া
+                setTimeout(() => {
+                    element.classList.remove('highlight-card');
+                }, 5000);
+            }
+        }, 1200); 
     }
 }
 
