@@ -455,26 +455,34 @@ let checkFirebase = setInterval(() => {
 // ব্রাউজার থেকে আসা কোডটি অটোমেটিক সার্চ এবং স্ক্রল করার জন্য
 window.addEventListener('load', function() {
     const urlParams = new URLSearchParams(window.location.search);
-    const code = urlParams.get('code');
+    const browserCode = urlParams.get('code'); // ব্রাউজার থেকে আসা কোড
     
-    if (code) {
-        // ১. সার্চ বক্সে কোডটি বসানো
-        document.getElementById('searchInput').value = code;
-        
-        // ২. ভিডিওটি খুঁজে বের করা (Search Result এ দেখানো)
-        triggerSearch(code);
+    // টেলিগ্রাম লিংকের স্টার্ট প্যারামিটার চেক করা
+    let startParam = urlParams.get('tgWebAppStartParam') || (window.Telegram && window.Telegram.WebApp && window.Telegram.WebApp.initDataUnsafe ? window.Telegram.WebApp.initDataUnsafe.start_param : null);
 
-        // ৩. অল্প সময় অপেক্ষা করে (যাতে কার্ডটি তৈরি হয়) স্ক্রল করা
+    // অগ্রাধিকার (Priority): যদি ব্রাউজার থেকে কোনো কোড আসে তবে সেটাই আগে কাজ করবে
+    const finalCode = browserCode || startParam;
+
+    if (finalCode) {
+        const targetId = finalCode.trim().toUpperCase();
+        
+        // ১. সার্চ বক্সে কোডটি বসানো
+        document.getElementById('searchInput').value = targetId;
+        
+        // ২. ভিডিওটি খুঁজে বের করা
+        triggerSearch(targetId);
+
+        // ৩. স্ক্রল করার লজিক
         setTimeout(() => {
             const searchResult = document.getElementById("searchResult");
             if (searchResult && searchResult.style.display !== "none") {
-                // স্মুথভাবে সার্চ রেজাল্ট এর কাছে নিয়ে যাবে
                 searchResult.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                
-                // কার্ডটিকে একটু হাইলাইট করার জন্য এনিমেশন ক্লাস (যদি থাকে)
                 searchResult.firstElementChild.classList.add('highlight-card');
             }
-        }, 800); 
+        }, 1000);
+
+        // একবার কাজ হয়ে গেলে URL টা পরিষ্কার করে ফেলা যাতে বারবার একই ভিডিও না আসে
+        window.history.replaceState({}, document.title, window.location.pathname);
     }
 });
 </script>
