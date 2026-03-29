@@ -185,28 +185,39 @@ tg.expand();
 // --- FUNCTIONS ---
 
 function checkStartParam() {
-    const params = new URLSearchParams(window.location.search);
-    const startParam = params.get('tgWebAppStartParam') || tg.initDataUnsafe.start_param;
-    
-    if (startParam) {
-        const targetId = startParam.trim().toUpperCase();
+function checkStartParam() {
+    // প্রতিবার প্যারামিটার চেক করার ফাংশন
+    const runScrollLogic = () => {
+        const params = new URLSearchParams(window.location.search);
+        const startParam = params.get('tgWebAppStartParam') || tg.initDataUnsafe.start_param;
         
-        setTimeout(() => {
-            const element = document.getElementById(`card-${targetId}`);
-            if (element) {
-                // ভিডিওর কাছে নিয়ে যাবে
-                element.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                
-                // হাইলাইট শুরু হবে
-                element.classList.add('highlight-card');
-                
-                // ১৫ সেকেন্ড (১৫০০০ মিলিসেকেন্ড) পর হাইলাইট বন্ধ হবে
-                setTimeout(() => {
+        if (startParam) {
+            const targetId = startParam.trim().toUpperCase();
+            
+            // একটু সময় বাড়িয়ে ১.৮ সেকেন্ড করা হলো যাতে ডাটাবেস ও ইমেজ পুরোপুরি লোড হয়
+            setTimeout(() => {
+                const element = document.getElementById(`card-${targetId}`);
+                if (element) {
+                    // আগের কোনো হাইলাইট থাকলে তা সরিয়ে ফেলা
                     element.classList.remove('highlight-card');
-                }, 15000); 
-            }
-        }, 1500); 
-    }
+                    
+                    // নতুন করে স্ক্রল এবং হাইলাইট করা
+                    element.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    element.classList.add('highlight-card');
+                    
+                    setTimeout(() => {
+                        element.classList.remove('highlight-card');
+                    }, 15000); 
+                }
+            }, 1800); 
+        }
+    };
+
+    // প্রথমবার ঢোকার সময় চলবে
+    runScrollLogic();
+
+    // ইউজার যদি অ্যাপ ওপেন থাকা অবস্থায় আবার লিংকে ক্লিক করে, তবে এটি কাজ করবে
+    tg.onEvent('settingsButtonClicked', runScrollLogic); // একটিভ ইভেন্ট লিসেনার
     }
 function triggerSearch(val) {
     const resultDiv = document.getElementById("searchResult");
