@@ -185,25 +185,29 @@ tg.expand();
 // --- FUNCTIONS ---
 
 function checkStartParam() {
-    // প্রতিবার প্যারামিটার চেক করার ফাংশন
     const runScrollLogic = () => {
+        // ১. URL থেকে আইডি খুঁজে বের করা
         const params = new URLSearchParams(window.location.search);
-        const startParam = params.get('tgWebAppStartParam') || tg.initDataUnsafe.start_param;
+        let startParam = params.get('tgWebAppStartParam') || tg.initDataUnsafe.start_param;
         
         if (startParam) {
             const targetId = startParam.trim().toUpperCase();
             
-            // একটু সময় বাড়িয়ে ১.৮ সেকেন্ড করা হলো যাতে ডাটাবেস ও ইমেজ পুরোপুরি লোড হয়
+            // ২. ১.৮ সেকেন্ড সময় দেওয়া হয়েছে যাতে ভিডিওগুলো রেন্ডার হতে পারে
             setTimeout(() => {
                 const element = document.getElementById(`card-${targetId}`);
                 if (element) {
-                    // আগের কোনো হাইলাইট থাকলে তা সরিয়ে ফেলা
+                    // ৩. আগের হাইলাইট রিমুভ করে নতুন করে স্ক্রল এবং হাইলাইট করা
                     element.classList.remove('highlight-card');
                     
-                    // নতুন করে স্ক্রল এবং হাইলাইট করা
                     element.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                    element.classList.add('highlight-card');
                     
+                    // রিফ্লো করার জন্য সামান্য গ্যাপ
+                    setTimeout(() => {
+                        element.classList.add('highlight-card');
+                    }, 100);
+
+                    // ৪. ১৫ সেকেন্ড পর হাইলাইট সরিয়ে নেওয়া
                     setTimeout(() => {
                         element.classList.remove('highlight-card');
                     }, 15000); 
@@ -212,12 +216,12 @@ function checkStartParam() {
         }
     };
 
-    // প্রথমবার ঢোকার সময় চলবে
+    // প্রথমবার যখন অ্যাপ ওপেন হবে তখন চলবে
     runScrollLogic();
 
-    // ইউজার যদি অ্যাপ ওপেন থাকা অবস্থায় আবার লিংকে ক্লিক করে, তবে এটি কাজ করবে
-    tg.onEvent('settingsButtonClicked', runScrollLogic); // একটিভ ইভেন্ট লিসেনার
-    }
+    // ইউজার যদি অ্যাপ খোলা অবস্থায় আবার নতুন লিংকে ক্লিক করে
+    tg.onEvent('viewportChanged', runScrollLogic); 
+}
 function triggerSearch(val) {
     const resultDiv = document.getElementById("searchResult");
     const searchVal = val.trim().toUpperCase();
