@@ -1,5 +1,118 @@
 // database.js ফাইলের ভেতরে শুধু এইটুকু থাকবে
 const videos = {
+    "EP_91": { 
+    title: "Episode 91", 
+    image: "https://i.ibb.co/8gjVZLtR/poster.jpg", 
+    final: "https://t.me/vaiiralwathevideo_bot?start=221f76b2", 
+    cat: "all", 
+    date: "31 Mar 2026", 
+    time: "03:45 am" 
+},
+"EP_90": { 
+    title: "Episode 90", 
+    image: "https://i.ibb.co/8gjVZLtR/poster.jpg", 
+    final: "https://t.me/vaiiralwathevideo_bot?start=b12991bc", 
+    cat: "all", 
+    date: "31 Mar 2026", 
+    time: "03:45 am" 
+},
+"EP_89": { 
+    title: "Episode 89", 
+    image: "https://i.ibb.co/8gjVZLtR/poster.jpg", 
+    final: "https://t.me/vaiiralwathevideo_bot?start=aed0b732", 
+    cat: "all", 
+    date: "31 Mar 2026", 
+    time: "03:45 am" 
+},
+"EP_88": { 
+    title: "Episode 88", 
+    image: "https://i.ibb.co/8gjVZLtR/poster.jpg", 
+    final: "https://t.me/vaiiralwathevideo_bot?start=63239a09", 
+    cat: "all", 
+    date: "31 Mar 2026", 
+    time: "03:45 am" 
+},
+"EP_87": { 
+    title: "Episode 87", 
+    image: "https://i.ibb.co/8gjVZLtR/poster.jpg", 
+    final: "https://t.me/vaiiralwathevideo_bot?start=2b5c826e", 
+    cat: "all", 
+    date: "31 Mar 2026", 
+    time: "03:45 am" 
+},
+"EP_86": { 
+    title: "Episode 86", 
+    image: "https://i.ibb.co/8gjVZLtR/poster.jpg", 
+    final: "https://t.me/vaiiralwathevideo_bot?start=a6747963", 
+    cat: "all", 
+    date: "31 Mar 2026", 
+    time: "03:45 am" 
+},
+"EP_85": { 
+    title: "Episode 85", 
+    image: "https://i.ibb.co/8gjVZLtR/poster.jpg", 
+    final: "https://t.me/vaiiralwathevideo_bot?start=473e67d9", 
+    cat: "all", 
+    date: "31 Mar 2026", 
+    time: "03:45 am" 
+},
+"EP_84": { 
+    title: "Episode 84", 
+    image: "https://i.ibb.co/8gjVZLtR/poster.jpg", 
+    final: "https://t.me/vaiiralwathevideo_bot?start=d584a4be", 
+    cat: "all", 
+    date: "31 Mar 2026", 
+    time: "03:45 am" 
+},
+"EP_83": { 
+    title: "Episode 83", 
+    image: "https://i.ibb.co/8gjVZLtR/poster.jpg", 
+    final: "https://t.me/vaiiralwathevideo_bot?start=43dc8737", 
+    cat: "all", 
+    date: "31 Mar 2026", 
+    time: "03:45 am" 
+},
+"EP_82": { 
+    title: "Episode 82", 
+    image: "https://i.ibb.co/8gjVZLtR/poster.jpg", 
+    final: "https://t.me/vaiiralwathevideo_bot?start=4e31238c", 
+    cat: "all", 
+    date: "31 Mar 2026", 
+    time: "03:45 am" 
+},
+"EP_81": { 
+    title: "Episode 81", 
+    image: "https://i.ibb.co/8gjVZLtR/poster.jpg", 
+    final: "https://t.me/vaiiralwathevideo_bot?start=49eafe71", 
+    cat: "all", 
+    date: "31 Mar 2026", 
+    time: "03:45 am" 
+},
+"EP_80": { 
+    title: "Episode 80", 
+    image: "https://i.ibb.co/8gjVZLtR/poster.jpg", 
+    final: "https://t.me/vaiiralwathevideo_bot?start=7552f06e", 
+    cat: "all", 
+    date: "31 Mar 2026", 
+    time: "03:45 am" 
+},
+"EP_79": { 
+    title: "Episode 79", 
+    image: "https://i.ibb.co/8gjVZLtR/poster.jpg", 
+    final: "https://t.me/vaiiralwathevideo_bot?start=a28337a0", 
+    cat: "all", 
+    date: "31 Mar 2026", 
+    time: "03:45 am" 
+},
+"EP_78": { 
+    title: "Episode 78", 
+    image: "https://i.ibb.co/8gjVZLtR/poster.jpg", 
+    final: "https://t.me/vaiiralwathevideo_bot?start=a59059a7", 
+    cat: "all", 
+    date: "31 Mar 2026", 
+    time: "03:45 am" 
+},
+
     "EP_77": { 
     title: "Episode 77", 
     image: "https://i.ibb.co/zVTgBQ79/poster.jpg", 
