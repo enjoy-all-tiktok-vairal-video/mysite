@@ -1,5 +1,45 @@
 // database.js ফাইলের ভেতরে শুধু এইটুকু থাকবে
 const videos = {
+    "EP_110": { 
+    title: "Episode 110", 
+    image: "https://i.ibb.co/8gjVZLtR/poster.jpg", 
+    final: "https://t.me/vaiiralwathevideo_bot?start=8db66b88-b", 
+    cat: "all", 
+    date: "05 Apr 2026", 
+    time: "03:07 pm" 
+},
+"EP_109": { 
+    title: "Episode 109", 
+    image: "https://i.ibb.co/8gjVZLtR/poster.jpg", 
+    final: "https://t.me/vaiiralwathevideo_bot?start=cec13555-9", 
+    cat: "all", 
+    date: "05 Apr 2026", 
+    time: "03:07 pm" 
+},
+"EP_108": { 
+    title: "Episode 108", 
+    image: "https://i.ibb.co/7NJ5JtCP/poster.jpg", 
+    final: "https://t.me/vaiiralwathevideo_bot?start=355c30fb-7", 
+    cat: "all", 
+    date: "05 Apr 2026", 
+    time: "03:07 pm" 
+},
+"EP_107": { 
+    title: "Episode 107", 
+    image: "https://i.ibb.co/678GBWvw/poster.jpg", 
+    final: "https://t.me/vaiiralwathevideo_bot?start=a91e2d94-2", 
+    cat: "all", 
+    date: "05 Apr 2026", 
+    time: "03:07 pm" 
+},
+"EP_106": { 
+    title: "Episode 106", 
+    image: "https://i.ibb.co/b5s3cBcq/poster.jpg", 
+    final: "https://t.me/vaiiralwathevideo_bot?start=521da607-a", 
+    cat: "all", 
+    date: "05 Apr 2026", 
+    time: "03:07 pm" 
+},
     "EP_105": { 
     title: "Episode 105", 
     image: "https://i.ibb.co/8gjVZLtR/poster.jpg", 
