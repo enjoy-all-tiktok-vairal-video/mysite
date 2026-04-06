@@ -1,5 +1,77 @@
 // database.js ফাইলের ভেতরে শুধু এইটুকু থাকবে
 const videos = {
+    "EP_119": { 
+    title: "Episode 119", 
+    image: "https://i.ibb.co/Wvcx6S8j/poster.jpg", 
+    final: "https://t.me/vaiiralwathevideo_bot?start=6a5bd161", 
+    cat: "all", 
+    date: "06 Apr 2026", 
+    time: "11:51 am" 
+},
+"EP_118": { 
+    title: "Episode 118", 
+    image: "https://i.ibb.co/8gjVZLtR/poster.jpg", 
+    final: "https://t.me/vaiiralwathevideo_bot?start=b101cce4", 
+    cat: "all", 
+    date: "06 Apr 2026", 
+    time: "11:51 am" 
+},
+"EP_117": { 
+    title: "Episode 117", 
+    image: "https://i.ibb.co/8gjVZLtR/poster.jpg", 
+    final: "https://t.me/vaiiralwathevideo_bot?start=5f078877", 
+    cat: "all", 
+    date: "06 Apr 2026", 
+    time: "11:51 am" 
+},
+"EP_116": { 
+    title: "Episode 116", 
+    image: "https://i.ibb.co/8gjVZLtR/poster.jpg", 
+    final: "https://t.me/vaiiralwathevideo_bot?start=17af250d", 
+    cat: "all", 
+    date: "06 Apr 2026", 
+    time: "11:51 am" 
+},
+"EP_115": { 
+    title: "Episode 115", 
+    image: "https://i.ibb.co/7tqfggCP/poster.jpg", 
+    final: "https://t.me/vaiiralwathevideo_bot?start=f7313484", 
+    cat: "all", 
+    date: "06 Apr 2026", 
+    time: "11:51 am" 
+},
+"EP_114": { 
+    title: "Episode 114", 
+    image: "https://i.ibb.co/K3wCs37/poster.jpg", 
+    final: "https://t.me/vaiiralwathevideo_bot?start=28faa763", 
+    cat: "all", 
+    date: "06 Apr 2026", 
+    time: "11:51 am" 
+},
+"EP_113": { 
+    title: "Episode 113", 
+    image: "https://i.ibb.co/8gjVZLtR/poster.jpg", 
+    final: "https://t.me/vaiiralwathevideo_bot?start=84884a2a", 
+    cat: "all", 
+    date: "06 Apr 2026", 
+    time: "11:51 am" 
+},
+"EP_112": { 
+    title: "Episode 112", 
+    image: "https://i.ibb.co/SXbqYQz7/poster.jpg", 
+    final: "https://t.me/vaiiralwathevideo_bot?start=ade5d21a-7", 
+    cat: "all", 
+    date: "06 Apr 2026", 
+    time: "11:51 am" 
+},
+"EP_111": { 
+    title: "Episode 111", 
+    image: "https://i.ibb.co/8gjVZLtR/poster.jpg", 
+    final: "https://t.me/vaiiralwathevideo_bot?start=c69f1930", 
+    cat: "all", 
+    date: "06 Apr 2026", 
+    time: "11:51 am" 
+},
     "EP_110": { 
     title: "Episode 110", 
     image: "https://i.ibb.co/8gjVZLtR/poster.jpg", 
