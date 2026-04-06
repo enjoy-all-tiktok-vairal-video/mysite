@@ -19,7 +19,7 @@ const videos = {
 "EP_117": { 
     title: "Episode 117", 
     image: "https://i.ibb.co/DHpj1GK1/poster.jpg", 
-    final: "https://t.me/vaiiralwathevideo_bot?start=5f078877", 
+    final: "https://t.me/vaiiralwathevideo_bot?start=a8e0aa1e", 
     cat: "all", 
     date: "06 Apr 2026", 
     time: "12:07 pm" 
