@@ -444,7 +444,7 @@ const videos = {
     title: "Episode 79", 
     image: "https://i.ibb.co/8gjVZLtR/poster.jpg", 
     final: "https://t.me/vaiiralwathevideo_bot?start=a28337a0", 
-    cat: "all", 
+    cat: "other", 
     date: "31 Mar 2026", 
     time: "03:45 am" 
 },
@@ -821,7 +821,7 @@ const videos = {
     title: "Episode 32", 
     image: "https://i.ibb.co/8DsPZxpr/poster.jpg", 
     final: "https://t.me/vaiiralwathevideo_bot?start=60579515", 
-    cat: "all", 
+    cat: "tiktok", 
     date: "30 Mar 2026", 
     time: "04:03 pm" 
 },
@@ -829,7 +829,7 @@ const videos = {
     title: "Episode 31", 
     image: "https://i.ibb.co/7dL8zsMY/poster.jpg", 
     final: "https://t.me/vaiiralwathevideo_bot?start=9d387f0c", 
-    cat: "all", 
+    cat: "tiktok", 
     date: "30 Mar 2026", 
     time: "04:03 pm" 
 },
@@ -837,7 +837,7 @@ const videos = {
     title: "Episode 30", 
     image: "https://i.ibb.co/ymRHLmm6/poster.jpg", 
     final: "https://t.me/vaiiralwathevideo_bot?start=1e4ff650", 
-    cat: "all", 
+    cat: "tiktok", 
     date: "30 Mar 2026", 
     time: "04:03 pm" 
 },
