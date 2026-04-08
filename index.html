@@ -263,17 +263,20 @@ function handleVote(code, type) {
     localStorage.setItem(key, type);
 }
 
+let isDirectLinkEnabled = false; // আপাতত বন্ধ, চালু করতে true লিখুন
+
 function startUnlock(code) {
     if (!adCounts[code]) adCounts[code] = 3;
     const btn = document.getElementById(`btn-${code}`) || document.getElementById(`btn-s-${code}`);
     
-    // ২য় ক্লিকে ডাইরেক্ট লিংক ওপেন করা
-    if (adCounts[code] === 2) window.open(myDirectLink, '_blank');
+    // শুধু ২য় ক্লিকে ডাইরেক্ট লিংকের লজিকটা এখানে হ্যান্ডেল করা হয়েছে
+    if (isDirectLinkEnabled && adCounts[code] === 2) {
+        window.open(myDirectLink, '_blank');
+    }
 
     const activeZone = zoneIds[currentZoneIndex];
     currentZoneIndex = (currentZoneIndex + 1) % zoneIds.length;
 
-    // মেইন ফিক্স: অ্যাড লোড না হলেও যেন কাজ করে
     if (typeof window[`show_${activeZone}`] === 'function') {
         window[`show_${activeZone}`]()
             .then(() => handleAds(code, btn))
