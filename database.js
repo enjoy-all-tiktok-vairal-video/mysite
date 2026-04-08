@@ -1,5 +1,101 @@
 // database.js ফাইলের ভেতরে শুধু এইটুকু থাকবে
 const videos = {
+    "EP_134": { 
+    title: "Episode 134", 
+    image: "https://i.ibb.co/YB3XMgZP/poster.jpg", 
+    final: "https://t.me/vaiiralwathevideo_bot?start=8a35393f-3", 
+    cat: "all", 
+    date: "08 Apr 2026", 
+    time: "09:12 pm" 
+},
+"EP_133": { 
+    title: "Episode 133", 
+    image: "https://i.ibb.co/8LmGcv3N/poster.jpg", 
+    final: "https://t.me/vaiiralwathevideo_bot?start=19b1d319-0", 
+    cat: "all", 
+    date: "08 Apr 2026", 
+    time: "09:12 pm" 
+},
+"EP_132": { 
+    title: "Episode 132", 
+    image: "https://i.ibb.co/Q7fyMLfY/poster.jpg", 
+    final: "https://t.me/vaiiralwathevideo_bot?start=3d40d04d-3", 
+    cat: "all", 
+    date: "08 Apr 2026", 
+    time: "09:12 pm" 
+},
+"EP_131": { 
+    title: "Episode 131", 
+    image: "https://i.ibb.co/4nX3sJcv/poster.jpg", 
+    final: "https://t.me/vaiiralwathevideo_bot?start=9544d710-8", 
+    cat: "all", 
+    date: "08 Apr 2026", 
+    time: "09:12 pm" 
+},
+"EP_130": { 
+    title: "Episode 130", 
+    image: "https://i.ibb.co/FqfkVs7K/poster.jpg", 
+    final: "https://t.me/vaiiralwathevideo_bot?start=b364efba-7", 
+    cat: "all", 
+    date: "08 Apr 2026", 
+    time: "09:12 pm" 
+},
+"EP_129": { 
+    title: "Episode 129", 
+    image: "https://i.ibb.co/PvPFh6vY/poster.jpg", 
+    final: "https://t.me/vaiiralwathevideo_bot?start=45645a59-1", 
+    cat: "all", 
+    date: "08 Apr 2026", 
+    time: "09:12 pm" 
+},
+"EP_128": { 
+    title: "Episode 128", 
+    image: "https://i.ibb.co/Gf3ztpBz/poster.jpg", 
+    final: "https://t.me/vaiiralwathevideo_bot?start=bf7247e0-0", 
+    cat: "all", 
+    date: "08 Apr 2026", 
+    time: "09:12 pm" 
+},
+"EP_127": { 
+    title: "Episode 127", 
+    image: "https://i.ibb.co/tTH1dSyv/poster.jpg", 
+    final: "https://t.me/vaiiralwathevideo_bot?start=a3da4ec9-8", 
+    cat: "all", 
+    date: "08 Apr 2026", 
+    time: "09:12 pm" 
+},
+"EP_126": { 
+    title: "Episode 126", 
+    image: "https://i.ibb.co/pBK5QbxR/poster.jpg", 
+    final: "https://t.me/vaiiralwathevideo_bot?start=da1820a4-2", 
+    cat: "all", 
+    date: "08 Apr 2026", 
+    time: "09:12 pm" 
+},
+"EP_125": { 
+    title: "Episode 125", 
+    image: "https://i.ibb.co/ccm1XSks/poster.jpg", 
+    final: "https://t.me/vaiiralwathevideo_bot?start=eae47635-3", 
+    cat: "all", 
+    date: "08 Apr 2026", 
+    time: "09:12 pm" 
+},
+"EP_124": { 
+    title: "Episode 124", 
+    image: "https://i.ibb.co/zTwfbb8z/poster.jpg", 
+    final: "https://t.me/vaiiralwathevideo_bot?start=ed4d578b-6", 
+    cat: "all", 
+    date: "08 Apr 2026", 
+    time: "09:12 pm" 
+},
+"EP_123": { 
+    title: "Episode 123", 
+    image: "https://i.ibb.co/dwWyVm5q/poster.jpg", 
+    final: "https://t.me/vaiiralwathevideo_bot?start=33d37721-e", 
+    cat: "all", 
+    date: "08 Apr 2026", 
+    time: "09:12 pm" 
+},
     "EP_122": { 
     title: "Episode 122", 
     image: "https://i.ibb.co/zhyFbZ0K/poster.jpg", 
