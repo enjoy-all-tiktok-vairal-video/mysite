@@ -444,7 +444,7 @@ const videos = {
     title: "Episode 79", 
     image: "https://i.ibb.co/8gjVZLtR/poster.jpg", 
     final: "https://t.me/vaiiralwathevideo_bot?start=a28337a0", 
-    cat: "other", 
+    cat: "others", 
     date: "31 Mar 2026", 
     time: "03:45 am" 
 },
