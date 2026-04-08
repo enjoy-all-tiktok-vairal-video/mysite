@@ -169,6 +169,10 @@
 const myDirectLink = "https://omg10.com/4/10547767";
 const botUrl = "https://t.me/enjoy420_bot/Enjoy_all"; 
 
+// --- কন্ট্রোল প্যানেল (এখান থেকে পরিবর্তন করবেন) ---
+let isDirectLinkEnabled = false; // ডাইরেক্ট লিংক চালু করতে true দিন
+let requiredAdCount = 3;         // ৩ টার জায়গায় ৫ টা চাইলে এখানে ৫ লিখে দিন
+
 let adCounts = {};
 let currentZoneIndex = 0;
 const zoneIds = ['10480960', '10679278', '10679295'];
@@ -179,15 +183,11 @@ tg.expand();
 
 // --- FUNCTIONS ---
 
-
 function triggerSearch(val) {
     const resultDiv = document.getElementById("searchResult");
-    
-    // ভিডিও ডাটাবেস লোড হয়েছে কি না চেক
     if (typeof videos === 'undefined') return;
 
     const searchVal = val.trim().toUpperCase();
-    
     if (!searchVal || !videos[searchVal]) {
         resultDiv.style.display = "none";
         return;
@@ -195,8 +195,6 @@ function triggerSearch(val) {
 
     resultDiv.style.display = "block";
     const v = videos[searchVal];
-    
-    // শেয়ার লিংক তৈরি
     const shareLink = `${botUrl}?startapp=${searchVal}`;
     const fbUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareLink)}`;
     const waUrl = `https://api.whatsapp.com/send?text=${encodeURIComponent(shareLink)}`;
@@ -208,7 +206,7 @@ function triggerSearch(val) {
                 <h3 style="color:#ff0000; font-size:13px; letter-spacing:1px;">⚡ DIRECT MATCH FOUND</h3>
                 <h3>${v.title}</h3>
                 <div class="meta-row">
-                    <span>📅 ${v.date || 'New'}</span>
+                    <span>📅 ${timeAgo((v.date || "") + " " + (v.time || ""))}</span>
                     <span class="id-badge" onclick="copyId('${searchVal}')"># ID: ${searchVal} 📋</span>
                 </div>
                 <div class="stats-bar">
@@ -217,7 +215,7 @@ function triggerSearch(val) {
                         <div class="stat-item">📥 <span id="sdn-${searchVal}">0</span></div>
                     </div>
                 </div>
-                <button class='button' onclick="startUnlock('${searchVal}')" id="btn-s-${searchVal}">🔒 UNLOCK NOW</button>
+                <button class='button' onclick="startUnlock('${searchVal}')" id="btn-s-${searchVal}">🔒 UNLOCK (${requiredAdCount} ADS LEFT)</button>
                 
                 <div class="share-row">
                     <button class="s-btn btn-link" onclick="copyLink('${searchVal}')">Get Link</button>
@@ -236,8 +234,6 @@ function triggerSearch(val) {
             }
         });
     }
-    
-    // সার্চ পাওয়ার পর পেজটি হালকা স্ক্রল করে রেজাল্টে নিয়ে যাবে
     resultDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
 }
 
@@ -263,13 +259,12 @@ function handleVote(code, type) {
     localStorage.setItem(key, type);
 }
 
-let isDirectLinkEnabled = false; // আপাতত বন্ধ, চালু করতে true লিখুন
-
 function startUnlock(code) {
-    if (!adCounts[code]) adCounts[code] = 3;
+    // এখানে ডাইনামিক requiredAdCount ব্যবহার করা হয়েছে
+    if (!adCounts[code]) adCounts[code] = requiredAdCount;
     const btn = document.getElementById(`btn-${code}`) || document.getElementById(`btn-s-${code}`);
     
-    // শুধু ২য় ক্লিকে ডাইরেক্ট লিংকের লজিকটা এখানে হ্যান্ডেল করা হয়েছে
+    // ডাইরেক্ট লিংকের লজিক (সুইচ চেক করবে)
     if (isDirectLinkEnabled && adCounts[code] === 2) {
         window.open(myDirectLink, '_blank');
     }
@@ -291,7 +286,6 @@ function handleAds(code, btn) {
     if (adCounts[code] > 0) {
         btn.innerText = `🔒 UNLOCK (${adCounts[code]} ADS LEFT)`;
     } else {
-        // ডাটাবেসে ভিউ এবং ডাউনলোড আপডেট
         if(window.db) {
             window.runTransaction(window.ref(window.db, `stats/${code}`), (data) => {
                 if (!data) data = { v: 0, down: 0, l: 0, d: 0 };
@@ -308,20 +302,12 @@ function handleAds(code, btn) {
     }
 }
 
-
-
 function filterCat(type, btn) {
     if(btn){
-        // সব বাটন থেকে একটিভ ক্লাস সরানো
         document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
-        // যে বাটনে ক্লিক করা হয়েছে সেটিকে একটিভ করা
         btn.classList.add('active');
-        
-        // ক্লিক করা বাটনের নাম নিচে বড় করে দেখানো
         const displayName = document.getElementById("selectedCatName");
-        if(displayName) {
-            displayName.innerText = btn.innerText.toUpperCase();
-        }
+        if(displayName) displayName.innerText = btn.innerText.toUpperCase();
     }
     
     const grid = document.getElementById("allVideos");
@@ -331,8 +317,6 @@ function filterCat(type, btn) {
         const v = videos[code];
         if (type === 'all' || v.cat === type) {
             const userVote = localStorage.getItem(`voted_${code}`);
-            
-            // --- শেয়ার করার লিংক তৈরি (বট লিংকের সাথে আইডি) ---
             const shareLink = `${botUrl}?startapp=${code}`;
             const fbUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareLink)}`;
             const waUrl = `https://api.whatsapp.com/send?text=${encodeURIComponent(shareLink)}`;
@@ -343,7 +327,7 @@ function filterCat(type, btn) {
                 <div class="card-info">
                     <h3>${v.title}</h3>
                     <div class="meta-row">
-                        <span>📅 ${v.date}</span>
+                        <span>📅 ${timeAgo(v.date + " " + (v.time || ""))}</span>
                         <span class="id-badge" onclick="copyId('${code}')"># ID: ${code} 📋</span>
                     </div>
                     <div class="stats-bar">
@@ -356,7 +340,7 @@ function filterCat(type, btn) {
                             <div class="stat-item ${userVote==='dislike'?'active-dis':''}" onclick="handleVote('${code}','dislike')">👎 <span id="d-${code}">0</span></div>
                         </div>
                     </div>
-                    <button class="button" onclick="startUnlock('${code}')" id="btn-${code}">🔒 UNLOCK (3 ADS LEFT)</button>
+                    <button class="button" onclick="startUnlock('${code}')" id="btn-${code}">🔒 UNLOCK (${requiredAdCount} ADS LEFT)</button>
                     
                     <div class="share-row">
                         <button class="s-btn btn-link" onclick="copyLink('${code}')">Get Link</button>
@@ -368,7 +352,6 @@ function filterCat(type, btn) {
             
             grid.insertAdjacentHTML('beforeend', cardHTML);
 
-            // Firebase থেকে রিয়েলটাইম ডাটা লোড করা
             if(window.db) {
                 window.onValue(window.ref(window.db, `stats/${code}`), (snap) => {
                     const val = snap.val();
@@ -384,7 +367,6 @@ function filterCat(type, btn) {
     });
 }
 
-// বাটনগুলোর জন্য প্রয়োজনীয় সাপোর্টিং ফাংশন
 function copyLink(code) {
     const link = `${botUrl}?startapp=${code}`;
     navigator.clipboard.writeText(link).then(() => {
@@ -396,9 +378,7 @@ function openShare(url) {
     window.open(url, '_blank');
 }
 
-
 function init() {
-    // স্লাইডার লোড
     const topSlider = document.getElementById("topSlider");
     if (topSlider) {
         topSlider.innerHTML = ""; 
@@ -406,55 +386,35 @@ function init() {
             topSlider.innerHTML += `<div class="slide-card" onclick="startUnlock('${code}')"><img src="${videos[code].image}"><div class="overlay"><p>${videos[code].title}</p></div></div>`;
         });
     }
-    // ক্যাটাগরি লোড
     filterCat('all', document.querySelector('.cat-btn'));
-    
 }
 
-// মূল সমাধান: Firebase লোড হওয়া পর্যন্ত অপেক্ষা করা
 let checkFirebase = setInterval(() => {
     if (window.db) {
         clearInterval(checkFirebase);
         init();
     }
 }, 500);
-// --- স্মার্ট ন্যাভিগেশন লজিক (টেলিগ্রাম লিংক + ব্রাউজার লিংক) ---
+
 function handleAppRouting() {
     const urlParams = new URLSearchParams(window.location.search);
-    
-    // ১. ব্রাউজার পেজ থেকে আসা আইডি (সবচেয়ে বেশি প্রায়োরিটি)
     const browserCode = urlParams.get('code');
-    
-    // ২. টেলিগ্রাম লিংক থেকে আসা আইডি
-    let startParam = urlParams.get('tgWebAppStartParam') || 
-                    (tg.initDataUnsafe && tg.initDataUnsafe.start_param ? tg.initDataUnsafe.start_param : null);
-
+    let startParam = urlParams.get('tgWebAppStartParam') || (tg.initDataUnsafe && tg.initDataUnsafe.start_param ? tg.initDataUnsafe.start_param : null);
     const targetCode = (browserCode || startParam);
 
     if (targetCode) {
         const cleanCode = targetCode.trim().toUpperCase();
-
-        // ১. সার্চ বক্সে কোডটি বসানো
         const searchInput = document.getElementById('searchInput');
         if(searchInput) searchInput.value = cleanCode;
 
-        // ২. ১.৫ সেকেন্ড অপেক্ষা করা যাতে ভিডিওগুলো রেন্ডার হতে পারে
         setTimeout(() => {
-            // নোট: triggerSearch(cleanCode) সরিয়ে দেওয়া হয়েছে যাতে অটোমেটিক সার্চ কার্ড উপরে না আসে।
-
-            // সরাসরি মেইন লিস্টে (Categories) ভিডিওটি খুঁজে সেখানে স্ক্রল করা
             const cardElement = document.getElementById(`card-${cleanCode}`);
             if (cardElement) {
                 cardElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                
-                // হাইলাইট এনিমেশন (বর্ডার এবং ফ্ল্যাশ)
                 cardElement.classList.remove('highlight-card');
                 setTimeout(() => cardElement.classList.add('highlight-card'), 100);
-                setTimeout(() => cardElement.classList.remove('highlight-card'), 10000);
             }
         }, 1500);
-
-        // কাজ শেষ! এখন URL ক্লিন করে ফেলা যাতে রিফ্রেশ করলে আবার একই ভিডিও বারবার না আসে
         window.history.replaceState({}, document.title, window.location.pathname);
     }
 }
@@ -483,9 +443,7 @@ function timeAgo(dateString) {
     return past.toLocaleDateString('en-GB'); 
 }
 
-// পেজ লোড হলে রান হবে
 window.addEventListener('load', () => {
-    // Firebase এবং ডাটাবেস লোড হওয়া পর্যন্ত ওয়েট করবে
     let waitData = setInterval(() => {
         if (window.db && typeof videos !== 'undefined') {
             clearInterval(waitData);
@@ -494,9 +452,7 @@ window.addEventListener('load', () => {
     }, 500);
 });
 
-// ইউজারের ম্যানুয়াল সার্চ লজিক
 document.getElementById("searchInput").addEventListener("input", function() {
     triggerSearch(this.value.trim().toUpperCase());
 });
-
 </script>
