@@ -67,7 +67,7 @@ const videos = {
 "EP_ 135": { 
     title: "Episode 135", 
     image: "https://i.ibb.co/SX7F47T6/poster.jpg", 
-    final: "https://t.me/vaiiralwathevideo_bot?start=47f8206dhttps://t.me/vaiiralwathevideo_bot?start=38c32339-6", 
+    final: "https://t.me/vaiiralwathevideo_bot?start=38c32339-6", 
     cat: "all", 
     date: "10 Apr 2026", 
     time: "12:15 am" 
