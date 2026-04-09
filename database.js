@@ -1,5 +1,77 @@
 // database.js ফাইলের ভেতরে শুধু এইটুকু থাকবে
 const videos = {
+    "EP_ 143": { 
+    title: "Episode 143", 
+    image: "https://i.ibb.co/7xkbkZdq/poster.jpg", 
+    final: "https://t.me/vaiiralwathevideo_bot?start=b4e8fc9e-6", 
+    cat: "all", 
+    date: "10 Apr 2026", 
+    time: "12:15 am" 
+},
+"EP_ 142": { 
+    title: "Episode 142", 
+    image: "https://i.ibb.co/MDJBM87q/poster.jpg", 
+    final: "https://t.me/vaiiralwathevideo_bot?start=731baaf8-1", 
+    cat: "all", 
+    date: "10 Apr 2026", 
+    time: "12:15 am" 
+},
+"EP_ 141": { 
+    title: "Episode 141", 
+    image: "https://i.ibb.co/8gjVZLtR/poster.jpg", 
+    final: "https://t.me/vaiiralwathevideo_bot?start=c3a33195", 
+    cat: "all", 
+    date: "10 Apr 2026", 
+    time: "12:15 am" 
+},
+"EP_ 140": { 
+    title: "Episode 140", 
+    image: "https://i.ibb.co/8gjVZLtR/poster.jpg", 
+    final: "https://t.me/vaiiralwathevideo_bot?start=47f8206d", 
+    cat: "all", 
+    date: "10 Apr 2026", 
+    time: "12:15 am" 
+},
+"EP_ 139": { 
+    title: "Episode 139", 
+    image: "https://i.ibb.co/TMPJ0SxG/poster.jpg", 
+    final: "https://t.me/vaiiralwathevideo_bot?start=a3969ac7-1", 
+    cat: "all", 
+    date: "10 Apr 2026", 
+    time: "12:15 am" 
+},
+"EP_ 138": { 
+    title: "Episode 138", 
+    image: "https://i.ibb.co/8gjVZLtR/poster.jpg", 
+    final: "https://t.me/vaiiralwathevideo_bot?start=bcba424e", 
+    cat: "all", 
+    date: "10 Apr 2026", 
+    time: "12:15 am" 
+},
+"EP_ 137": { 
+    title: "Episode 137", 
+    image: "https://i.ibb.co/gZp794yj/poster.jpg", 
+    final: "https://t.me/vaiiralwathevideo_bot?start=b21b64b6-2", 
+    cat: "all", 
+    date: "10 Apr 2026", 
+    time: "12:15 am" 
+},
+"EP_ 136": { 
+    title: "Episode 136", 
+    image: "https://i.ibb.co/Y7hyPZFv/poster.jpg", 
+    final: "https://t.me/vaiiralwathevideo_bot?start=a6665707-4", 
+    cat: "all", 
+    date: "10 Apr 2026", 
+    time: "12:15 am" 
+},
+"EP_ 135": { 
+    title: "Episode 135", 
+    image: "https://i.ibb.co/SX7F47T6/poster.jpg", 
+    final: "https://t.me/vaiiralwathevideo_bot?start=47f8206dhttps://t.me/vaiiralwathevideo_bot?start=38c32339-6", 
+    cat: "all", 
+    date: "10 Apr 2026", 
+    time: "12:15 am" 
+},
     "EP_134": { 
     title: "Episode 134", 
     image: "https://i.ibb.co/YB3XMgZP/poster.jpg", 
