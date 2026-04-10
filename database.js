@@ -8,7 +8,7 @@ const videos = {
     date: "10 Apr 2026", 
     time: "12:15 am" 
 },
-    "EP_ 143": { 
+    "EP_143": { 
     title: "Episode 143", 
     image: "https://i.ibb.co/7xkbkZdq/poster.jpg", 
     final: "https://t.me/vaiiralwathevideo_bot?start=b4e8fc9e-6", 
