@@ -162,11 +162,6 @@ const tg = window.Telegram.WebApp;
 tg.ready();
 tg.expand();
 
-// --- ১. জুম বন্ধ করার লজিক যোগ করা হয়েছে ---
-document.addEventListener('touchstart', function(event) {
-    if (event.touches.length > 1) { event.preventDefault(); }
-}, { passive: false });
-
 function triggerSearch(val) {
     const resultDiv = document.getElementById("searchResult");
     if (typeof videos === 'undefined') return;
@@ -256,7 +251,6 @@ function filterCat(type, btn) {
 function copyLink(code) { const link = `${botUrl}?startapp=${code}`; navigator.clipboard.writeText(link).then(() => { alert("লিংক কপি হয়েছে! ✅"); }); }
 function openShare(url) { window.open(url, '_blank'); }
 
-// --- ২. অটো-স্ক্রল লজিক আপডেট করা হয়েছে ---
 function forceScrollToCard() {
     const urlParams = new URLSearchParams(window.location.search);
     let startParam = urlParams.get('tgWebAppStartParam') || urlParams.get('code');
@@ -265,10 +259,7 @@ function forceScrollToCard() {
     if (startParam) {
         const cleanCode = startParam.trim().toUpperCase();
         const searchInput = document.getElementById('searchInput');
-        if(searchInput) {
-            searchInput.value = cleanCode;
-            triggerSearch(cleanCode); // সার্চ বক্সেও রেজাল্ট দেখাবে
-        }
+        if(searchInput) searchInput.value = cleanCode;
 
         let attempts = 0;
         const checkExist = setInterval(() => {
@@ -276,30 +267,27 @@ function forceScrollToCard() {
             if (cardElement) {
                 clearInterval(checkExist);
                 setTimeout(() => {
-                    // ভিডিও কার্ডের কাছে টেনে নিয়ে যাওয়ার আসল কমান্ড
                     cardElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
                     cardElement.classList.add('neon-highlight-card');
                     setTimeout(() => cardElement.classList.remove('neon-highlight-card'), 15000);
                 }, 1000);
             }
             attempts++;
-            if(attempts > 40) clearInterval(checkExist); // ২০ সেকেন্ড পর্যন্ত ট্রাই করবে
+            if(attempts > 20) clearInterval(checkExist);
         }, 500);
     }
 }
 
 function init() {
     const topSlider = document.getElementById("topSlider");
-    if (topSlider && typeof videos !== 'undefined') {
+    if (topSlider) {
         topSlider.innerHTML = ""; 
         Object.keys(videos).slice(0, 15).forEach(code => {
             topSlider.innerHTML += `<div class="slide-card" onclick="startUnlock('${code}')"><img src="${videos[code].image}"><div class="overlay"><p>${videos[code].title}</p></div></div>`;
         });
     }
     filterCat('all', document.querySelector('.cat-btn'));
-    
-    // ভিডিও কার্ডগুলো তৈরি হওয়ার ২ সেকেন্ড পর স্ক্রল শুরু হবে
-    setTimeout(forceScrollToCard, 2000); 
+    setTimeout(forceScrollToCard, 1500); 
 }
 
 let checkFirebase = setInterval(() => { if (window.db) { clearInterval(checkFirebase); init(); } }, 500);
