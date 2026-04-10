@@ -162,7 +162,7 @@ const tg = window.Telegram.WebApp;
 tg.ready();
 tg.expand();
 
-// --- ১. জুম বন্ধ করার লজিক যোগ করা হয়েছে ---
+// ১. জুম বন্ধ করার লজিক
 document.addEventListener('touchstart', function(event) {
     if (event.touches.length > 1) { event.preventDefault(); }
 }, { passive: false });
@@ -256,7 +256,7 @@ function filterCat(type, btn) {
 function copyLink(code) { const link = `${botUrl}?startapp=${code}`; navigator.clipboard.writeText(link).then(() => { alert("লিংক কপি হয়েছে! ✅"); }); }
 function openShare(url) { window.open(url, '_blank'); }
 
-// --- ২. অটো-স্ক্রল লজিক আপডেট করা হয়েছে ---
+// --- ২. অটো-স্ক্রল এবং ফোকাস লজিক (শক্তিশালী করা হয়েছে) ---
 function forceScrollToCard() {
     const urlParams = new URLSearchParams(window.location.search);
     let startParam = urlParams.get('tgWebAppStartParam') || urlParams.get('code');
@@ -264,45 +264,61 @@ function forceScrollToCard() {
 
     if (startParam) {
         const cleanCode = startParam.trim().toUpperCase();
+        
+        // সার্চ বক্সে অটো টাইপ এবং রেজাল্ট দেখানো
         const searchInput = document.getElementById('searchInput');
         if(searchInput) {
             searchInput.value = cleanCode;
-            triggerSearch(cleanCode); // সার্চ বক্সেও রেজাল্ট দেখাবে
+            triggerSearch(cleanCode); 
         }
 
+        // কার্ডটি খুঁজে না পাওয়া পর্যন্ত চেক করবে (Interval)
         let attempts = 0;
         const checkExist = setInterval(() => {
             const cardElement = document.getElementById(`card-${cleanCode}`);
             if (cardElement) {
                 clearInterval(checkExist);
                 setTimeout(() => {
-                    // ভিডিও কার্ডের কাছে টেনে নিয়ে যাওয়ার আসল কমান্ড
+                    // স্ক্রল লজিক
                     cardElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
                     cardElement.classList.add('neon-highlight-card');
+                    // ১৫ সেকেন্ড পর হাইলাইট রিমুভ হবে
                     setTimeout(() => cardElement.classList.remove('neon-highlight-card'), 15000);
-                }, 1000);
+                }, 800);
             }
             attempts++;
-            if(attempts > 40) clearInterval(checkExist); // ২০ সেকেন্ড পর্যন্ত ট্রাই করবে
+            // ২০ সেকেন্ড পর্যন্ত ট্রাই করবে
+            if(attempts > 40) clearInterval(checkExist); 
         }, 500);
     }
 }
 
 function init() {
     const topSlider = document.getElementById("topSlider");
-    if (topSlider && typeof videos !== 'undefined') {
+    // database.js লোড হয়েছে কি না চেক
+    if (typeof videos === 'undefined') return;
+
+    if (topSlider) {
         topSlider.innerHTML = ""; 
         Object.keys(videos).slice(0, 15).forEach(code => {
             topSlider.innerHTML += `<div class="slide-card" onclick="startUnlock('${code}')"><img src="${videos[code].image}"><div class="overlay"><p>${videos[code].title}</p></div></div>`;
         });
     }
+
+    // সব কার্ড তৈরি করা
     filterCat('all', document.querySelector('.cat-btn'));
     
-    // ভিডিও কার্ডগুলো তৈরি হওয়ার ২ সেকেন্ড পর স্ক্রল শুরু হবে
-    setTimeout(forceScrollToCard, 2000); 
+    // ভিডিও রেন্ডার হওয়ার সাথে সাথেই স্ক্রল চেক শুরু
+    forceScrollToCard(); 
 }
 
-let checkFirebase = setInterval(() => { if (window.db) { clearInterval(checkFirebase); init(); } }, 500);
+// ফায়ারবেস এবং ভিডিও ডেটা লোড হওয়ার অপেক্ষা
+let checkReady = setInterval(() => { 
+    if (window.db && typeof videos !== 'undefined' && Object.keys(videos).length > 0) { 
+        clearInterval(checkReady); 
+        init(); 
+    } 
+}, 500);
 
 function timeAgo(dateString) {
     const now = new Date(); const past = new Date(dateString); const diffInSeconds = Math.floor((now - past) / 1000);
@@ -317,4 +333,4 @@ function timeAgo(dateString) {
 document.getElementById("searchInput").addEventListener("input", function() { triggerSearch(this.value.trim().toUpperCase()); });
 </script>
 </body>
-</html>
+    </html>
