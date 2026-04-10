@@ -296,50 +296,45 @@ let checkFirebase = setInterval(() => { if (window.db) { clearInterval(checkFire
 function handleAppRouting() {
     const urlParams = new URLSearchParams(window.location.search);
     const browserCode = urlParams.get('code');
-    
-    // টেলিগ্রাম প্যারামিটার চেক
-    let startParam = null;
-    if (tg.initDataUnsafe && tg.initDataUnsafe.start_param) {
-        startParam = tg.initDataUnsafe.start_param;
-    }
-    
+    let startParam = urlParams.get('tgWebAppStartParam') || (tg.initDataUnsafe && tg.initDataUnsafe.start_param ? tg.initDataUnsafe.start_param : null);
     const targetCode = (browserCode || startParam);
-    
+
     if (targetCode) {
         const cleanCode = targetCode.trim().toUpperCase();
         
-        // সার্চ ইনপুট এ কোড বসানো
+        // সার্চ বক্সে কোডটি বসিয়ে দেওয়া
         const searchInput = document.getElementById('searchInput');
         if(searchInput) searchInput.value = cleanCode;
 
-        // ডেটা লোড হওয়া পর্যন্ত সর্বোচ্চ ৫ সেকেন্ড অপেক্ষা করবে
-        let retryCount = 0;
-        const scrollInterval = setInterval(() => {
+        // ভিডিও কার্ডটি তৈরি হওয়া পর্যন্ত অপেক্ষা করা (স্মার্ট চেক)
+        let attempts = 0;
+        const checkExist = setInterval(() => {
             const cardElement = document.getElementById(`card-${cleanCode}`);
             
-            // যদি কার্ডটি তৈরি হয়ে যায় (DOM এ চলে আসে)
-            if (cardElement) { 
-                clearInterval(scrollInterval);
-                cardElement.scrollIntoView({ behavior: 'smooth', block: 'center' }); 
-                cardElement.classList.add('neon-highlight-card'); 
+            if (cardElement) {
+                clearInterval(checkExist); // কার্ড পাওয়া গেছে, তাই লুপিং বন্ধ
                 
-                // ১৫ সেকেন্ড পর হাইলাইট বন্ধ হবে
+                // ১ সেকেন্ড অপেক্ষা করা যাতে ইমেজ লোড হয়ে হাইট ঠিক হয়
+                setTimeout(() => {
+                    cardElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    cardElement.classList.add('neon-highlight-card');
+                }, 800);
+                
+                // ১৫ সেকেন্ড পর হাইলাইট বন্ধ করা
                 setTimeout(() => {
                     cardElement.classList.remove('neon-highlight-card');
                 }, 15000);
-            } 
-            
-            // যদি ভিডিও ডেটাবেজে থাকে কিন্তু কার্ড এখনো না তৈরি হয়, তবে সার্চ ট্রিগার করা
-            else if (typeof videos !== 'undefined' && videos[cleanCode]) {
-                triggerSearch(cleanCode);
-                clearInterval(scrollInterval);
             }
-
-            retryCount++;
-            if (retryCount > 50) clearInterval(scrollInterval); // ৫ সেকেন্ড পর থামা
-        }, 100);
+            
+            attempts++;
+            if (attempts > 20) { // ১০ সেকেন্ড পর্যন্ত ট্রাই করবে
+                clearInterval(checkExist);
+                console.log("Card not found after 10 seconds");
+            }
+        }, 500); 
     }
 }
+
 function timeAgo(dateString) {
     const now = new Date(); const past = new Date(dateString); const diffInSeconds = Math.floor((now - past) / 1000);
     if (isNaN(past)) return dateString; 
@@ -351,13 +346,15 @@ function timeAgo(dateString) {
     return past.toLocaleDateString('en-GB'); 
 }
 
+// আপনার কোডের একদম নিচের দিকের উইন্ডো লোড ইভেন্টটি এভাবে দিন
 window.addEventListener('load', () => { 
     let waitData = setInterval(() => { 
-        if (window.db && typeof videos !== 'undefined') { 
+        // ডেটাবেস এবং ভিডিও লিস্ট রেন্ডার হয়েছে কি না চেক করা
+        if (window.db && typeof videos !== 'undefined' && document.querySelectorAll('.card').length > 0) { 
             clearInterval(waitData); 
             handleAppRouting(); 
         } 
-    }, 200); 
+    }, 500); 
 });
 document.getElementById("searchInput").addEventListener("input", function() { triggerSearch(this.value.trim().toUpperCase()); });
 </script>
