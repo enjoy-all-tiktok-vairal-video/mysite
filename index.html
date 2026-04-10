@@ -37,21 +37,57 @@
     <script src='//libtl.com/sdk.js' data-zone='10679295' data-sdk='show_10679295'></script>
     
     <style>
-    /* ১. সিকিউরিটি এবং রুট সেটিংস */
+    /* সিকিউরিটি এবং রুট সেটিংস */
     * { -webkit-user-select: none !important; -ms-user-select: none !important; user-select: none !important; -webkit-tap-highlight-color: transparent; }
     body { margin: 0; background: #050505; font-family: 'Segoe UI', Arial, sans-serif; color: white; scroll-behavior: smooth; overflow-x: hidden; touch-action: pan-y; }
 
-    /* ২. রেইনবো গ্লো সার্চ বার */
+    /* রেইনবো গ্লো সার্চ বার */
     .header { display: flex; justify-content: space-between; align-items: center; padding: 15px; background: rgba(10, 10, 10, 0.9); position: sticky; top: 0; z-index: 1000; backdrop-filter: blur(15px); border-bottom: 1px solid #222; }
     .logo { font-size: 22px; font-weight: bold; color: #ff0000; letter-spacing: 1px; text-shadow: 0 0 10px rgba(255,0,0,0.5); display: inline-block; animation: logoElastic 3.5s ease-in-out infinite; }
     @keyframes logoElastic { 0%, 100% { transform: scale(1); color: #ff0000; } 50% { transform: scale(1.15) rotate(-3deg); color: #ffffff; text-shadow: 0 0 20px #ff0000; } }
     
-    .search { padding: 10px 15px; border-radius: 25px; border: 2.5px solid #333; background: #1a1a1a; color: white; width: 45%; outline: none; transition: 0.3s; animation: rainbowBorder 4s linear infinite; box-shadow: 0 0 10px rgba(255, 0, 0, 0.2); }
-    @keyframes rainbowBorder { 0% { border-color: #ff0000; box-shadow: 0 0 10px rgba(255,0,0,0.5); } 25% { border-color: #ffff00; box-shadow: 0 0 10px rgba(255,255,0,0.5); } 50% { border-color: #00ff00; box-shadow: 0 0 10px rgba(0,255,0,0.5); } 75% { border-color: #00ffff; box-shadow: 0 0 10px rgba(0,255,255,0.5); } 100% { border-color: #ff0000; box-shadow: 0 0 10px rgba(255,0,0,0.5); } }
+    .search { 
+        padding: 10px 15px; border-radius: 25px; border: 2.5px solid #333; background: #1a1a1a; color: white; width: 45%; outline: none; 
+        transition: 0.3s; animation: rainbowBorder 4s linear infinite;
+        box-shadow: 0 0 10px rgba(255, 0, 0, 0.2);
+    }
+    @keyframes rainbowBorder { 
+        0% { border-color: #ff0000; box-shadow: 0 0 10px rgba(255,0,0,0.5); } 
+        25% { border-color: #ffff00; box-shadow: 0 0 10px rgba(255,255,0,0.5); } 
+        50% { border-color: #00ff00; box-shadow: 0 0 10px rgba(0,255,0,0.5); } 
+        75% { border-color: #00ffff; box-shadow: 0 0 10px rgba(0,255,255,0.5); } 
+        100% { border-color: #ff0000; box-shadow: 0 0 10px rgba(255,0,0,0.5); } 
+    }
 
-    /* ৩. নিওন হাইলাইট কার্ড */
-    .neon-highlight-card { animation: neonPulsate 1.5s infinite alternate !important; border: 3px solid #ff0000 !important; transform: scale(1.03); z-index: 50; }
-    @keyframes neonPulsate { 0% { border-color: #ff0000; box-shadow: 0 0 20px #ff0000, inset 0 0 10px #ff0000; } 100% { border-color: #00ffff; box-shadow: 0 0 20px #00ffff, inset 0 0 10px #00ffff; } }
+    .cat-btn.active {
+        border: none !important; position: relative; background: #111 !important; color: #fff; transform: scale(1.08); z-index: 1; overflow: hidden;
+    }
+    .cat-btn.active::before {
+        content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
+        background: conic-gradient(#ff0000, #ffff00, #00ff00, #00ffff, #0000ff, #ff00ff, #ff0000);
+        animation: rotateRunningLight 3s linear infinite; z-index: -2;
+    }
+    .cat-btn.active::after {
+        content: ''; position: absolute; inset: 2.5px; background: #111; border-radius: 30px; z-index: -1;
+    }
+    @keyframes rotateRunningLight { 100% { transform: rotate(360deg); } }
+
+    /* রেড-সায়ান নিওন হাইলাইট */
+    .neon-highlight-card {
+        animation: neonPulsate 1.5s infinite alternate !important;
+        border: 3px solid #ff0000 !important;
+        transform: scale(1.03); z-index: 50;
+    }
+    @keyframes neonPulsate {
+        0% { border-color: #ff0000; box-shadow: 0 0 20px #ff0000, inset 0 0 10px #ff0000; }
+        100% { border-color: #00ffff; box-shadow: 0 0 20px #00ffff, inset 0 0 10px #00ffff; }
+    }
+
+    .s-btn { animation: discoBtnEffect 2s infinite alternate !important; }
+    @keyframes discoBtnEffect {
+        0% { filter: hue-rotate(0deg) brightness(1); transform: scale(1); }
+        100% { filter: hue-rotate(360deg) brightness(1.3); transform: scale(1.05); }
+    }
 
     .container { padding: 15px; margin-bottom: 80px; }
     .section-title { font-size: 18px; margin: 25px 0 15px; border-left: 4px solid #ff0000; padding-left: 12px; font-weight: bold; text-transform: uppercase; letter-spacing: 1px; }
@@ -120,7 +156,7 @@
 </div>
 
 <div class="nav">
-    <a href="index.html" id="nav-home" class="active">🏠 Home</a>
+    <a href="index.html" id="nav-home">🏠 Home</a>
     <a href="browser.html" id="nav-browser">🌐 Browser</a>
     <a href="profile.html">👤 Profile</a>
     <a href="support.html">🛠 Support</a>
@@ -140,7 +176,10 @@ tg.ready();
 tg.expand();
 tg.enableClosingConfirmation();
 
-// সার্চ লজিক
+document.onkeydown = function(e) {
+    if(e.keyCode == 123 || (e.ctrlKey && e.shiftKey && (e.keyCode == 'I'.charCodeAt(0) || e.keyCode == 'J'.charCodeAt(0))) || (e.ctrlKey && e.keyCode == 'U'.charCodeAt(0))) return false;
+};
+
 function triggerSearch(val) {
     const resultDiv = document.getElementById("searchResult");
     if (typeof videos === 'undefined') return;
@@ -212,7 +251,6 @@ function handleAds(code, btn) {
     }
 }
 
-// ক্যাটাগরি ফিল্টার এবং ভিডিও লোড
 function filterCat(type, btn) {
     if(btn){ 
         document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active')); 
@@ -236,7 +274,22 @@ function filterCat(type, btn) {
 function copyLink(code) { const link = `${botUrl}?startapp=${code}`; navigator.clipboard.writeText(link).then(() => { alert("লিংক কপি হয়েছে! ✅"); }); }
 function openShare(url) { window.open(url, '_blank'); }
 
-// অটো-স্ক্রল লজিক (সবচেয়ে গুরুত্বপূর্ণ অংশ)
+function init() {
+    const topSlider = document.getElementById("topSlider");
+    if (topSlider) {
+        topSlider.innerHTML = ""; 
+        Object.keys(videos).slice(0, 15).forEach(code => {
+            topSlider.innerHTML += `<div class="slide-card" onclick="startUnlock('${code}')"><img src="${videos[code].image}"><div class="overlay"><p>${videos[code].title}</p></div></div>`;
+        });
+    }
+    filterCat('all', document.querySelector('.cat-btn'));
+    
+    // ভিডিও লিস্ট রেন্ডার হওয়ার পর স্ক্রল চেক (স্মার্ট ডিলে)
+    setTimeout(forceScrollToCard, 1500); 
+}
+
+let checkFirebase = setInterval(() => { if (window.db) { clearInterval(checkFirebase); init(); } }, 500);
+
 function forceScrollToCard() {
     const urlParams = new URLSearchParams(window.location.search);
     let startParam = urlParams.get('tgWebAppStartParam') || urlParams.get('code');
@@ -247,45 +300,17 @@ function forceScrollToCard() {
 
     if (startParam) {
         const cleanCode = startParam.trim().toUpperCase();
-        
-        // যতক্ষণ কার্ডটি না পাওয়া যাবে, ততক্ষণ ট্রাই করবে (১০ সেকেন্ড পর্যন্ত)
-        let attempts = 0;
-        const scrollInterval = setInterval(() => {
-            const cardElement = document.getElementById(`card-${cleanCode}`);
-            if (cardElement) {
-                clearInterval(scrollInterval); // কার্ড পাওয়া গেছে, তাই লুপ বন্ধ
-                
-                // কার্ডের কাছে টেনে নিয়ে যাওয়া
-                setTimeout(() => {
-                    cardElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                    cardElement.classList.add('neon-highlight-card');
-                    
-                    // সার্চ বক্সে আইডি বসানো
-                    const searchInput = document.getElementById('searchInput');
-                    if(searchInput) searchInput.value = cleanCode;
-                }, 500);
+        const searchInput = document.getElementById('searchInput');
+        if(searchInput) searchInput.value = cleanCode;
 
-                setTimeout(() => { cardElement.classList.remove('neon-highlight-card'); }, 15000);
-            }
-            attempts++;
-            if (attempts > 20) clearInterval(scrollInterval); // ১০ সেকেন্ড পর বন্ধ হবে
-        }, 500);
+        const cardElement = document.getElementById(`card-${cleanCode}`);
+        if (cardElement) {
+            cardElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            cardElement.classList.add('neon-highlight-card');
+            setTimeout(() => { cardElement.classList.remove('neon-highlight-card'); }, 15000);
+        }
     }
 }
-
-function init() {
-    const topSlider = document.getElementById("topSlider");
-    if (topSlider) {
-        topSlider.innerHTML = ""; 
-        Object.keys(videos).slice(0, 15).forEach(code => {
-            topSlider.innerHTML += `<div class="slide-card" onclick="startUnlock('${code}')"><img src="${videos[code].image}"><div class="overlay"><p>${videos[code].title}</p></div></div>`;
-        });
-    }
-    filterCat('all', document.querySelector('.cat-btn'));
-    forceScrollToCard(); // অ্যাপ শুরুতেই চেক করবে
-}
-
-let checkFirebase = setInterval(() => { if (window.db) { clearInterval(checkFirebase); init(); } }, 500);
 
 function timeAgo(dateString) {
     const now = new Date(); const past = new Date(dateString); const diffInSeconds = Math.floor((now - past) / 1000);
@@ -297,6 +322,15 @@ function timeAgo(dateString) {
     if (diffInSeconds < intervals.week) return Math.floor(diffInSeconds / intervals.day) + " days ago";
     return past.toLocaleDateString('en-GB'); 
 }
+
+window.addEventListener('load', () => { 
+    let checkData = setInterval(() => { 
+        if (window.db && typeof videos !== 'undefined' && document.querySelectorAll('.card').length > 0) { 
+            clearInterval(checkData); 
+            setTimeout(forceScrollToCard, 1000);
+        } 
+    }, 500); 
+});
 
 document.getElementById("searchInput").addEventListener("input", function() { triggerSearch(this.value.trim().toUpperCase()); });
 </script>
