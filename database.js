@@ -1,7 +1,7 @@
 // database.js ফাইলের ভেতরে শুধু এইটুকু থাকবে
 const videos = {
     "EP_ 144": { 
-    title: "Episode 143", 
+    title: "Episode 144", 
     image: "https://i.ibb.co/7xkbkZdq/poster.jpg", 
     final: "https://t.me/vaiiralwathevideo_bot?start=b4e8fc9e-6", 
     cat: "all", 
