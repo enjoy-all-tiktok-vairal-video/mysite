@@ -1,5 +1,13 @@
 // database.js ফাইলের ভেতরে শুধু এইটুকু থাকবে
 const videos = {
+    "EP_ 144": { 
+    title: "Episode 143", 
+    image: "https://i.ibb.co/7xkbkZdq/poster.jpg", 
+    final: "https://t.me/vaiiralwathevideo_bot?start=b4e8fc9e-6", 
+    cat: "all", 
+    date: "10 Apr 2026", 
+    time: "12:15 am" 
+},
     "EP_ 143": { 
     title: "Episode 143", 
     image: "https://i.ibb.co/7xkbkZdq/poster.jpg", 
