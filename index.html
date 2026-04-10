@@ -37,11 +37,11 @@
     <script src='//libtl.com/sdk.js' data-zone='10679295' data-sdk='show_10679295'></script>
     
     <style>
-    /* ১. সিকিউরিটি এবং রুট সেটিংস */
+    /* সিকিউরিটি এবং রুট সেটিংস */
     * { -webkit-user-select: none !important; -ms-user-select: none !important; user-select: none !important; -webkit-tap-highlight-color: transparent; }
     body { margin: 0; background: #050505; font-family: 'Segoe UI', Arial, sans-serif; color: white; scroll-behavior: smooth; overflow-x: hidden; touch-action: pan-y; }
 
-    /* ২. রেইনবো গ্লো সার্চ বার */
+    /* রেইনবো গ্লো সার্চ বার */
     .header { display: flex; justify-content: space-between; align-items: center; padding: 15px; background: rgba(10, 10, 10, 0.9); position: sticky; top: 0; z-index: 1000; backdrop-filter: blur(15px); border-bottom: 1px solid #222; }
     .logo { font-size: 22px; font-weight: bold; color: #ff0000; letter-spacing: 1px; text-shadow: 0 0 10px rgba(255,0,0,0.5); display: inline-block; animation: logoElastic 3.5s ease-in-out infinite; }
     @keyframes logoElastic { 0%, 100% { transform: scale(1); color: #ff0000; } 50% { transform: scale(1.15) rotate(-3deg); color: #ffffff; text-shadow: 0 0 20px #ff0000; } }
@@ -59,7 +59,6 @@
         100% { border-color: #ff0000; box-shadow: 0 0 10px rgba(255,0,0,0.5); } 
     }
 
-    /* ৩. রানিং লাইট ক্যাটাগরি বাটন */
     .cat-btn.active {
         border: none !important; position: relative; background: #111 !important; color: #fff; transform: scale(1.08); z-index: 1; overflow: hidden;
     }
@@ -73,7 +72,7 @@
     }
     @keyframes rotateRunningLight { 100% { transform: rotate(360deg); } }
 
-    /* ৪. রেড-সায়ান নিওন হাইলাইট (১৫ সেকেন্ড) */
+    /* রেড-সায়ান নিওন হাইলাইট */
     .neon-highlight-card {
         animation: neonPulsate 1.5s infinite alternate !important;
         border: 3px solid #ff0000 !important;
@@ -84,14 +83,12 @@
         100% { border-color: #00ffff; box-shadow: 0 0 20px #00ffff, inset 0 0 10px #00ffff; }
     }
 
-    /* ৫. ডিস্কো শেয়ার বাটন */
     .s-btn { animation: discoBtnEffect 2s infinite alternate !important; }
     @keyframes discoBtnEffect {
         0% { filter: hue-rotate(0deg) brightness(1); transform: scale(1); }
         100% { filter: hue-rotate(360deg) brightness(1.3); transform: scale(1.05); }
     }
 
-    /* অন্যান্য ডিজাইন */
     .container { padding: 15px; margin-bottom: 80px; }
     .section-title { font-size: 18px; margin: 25px 0 15px; border-left: 4px solid #ff0000; padding-left: 12px; font-weight: bold; text-transform: uppercase; letter-spacing: 1px; }
     .slider-container { display: flex; overflow-x: auto; gap: 15px; padding-bottom: 15px; scrollbar-width: none; }
@@ -108,10 +105,8 @@
 
     .video-grid { display: grid; grid-template-columns: 1fr; gap: 30px; max-width: 500px; margin: auto; }
     .card { background: #121212; border-radius: 20px; overflow: hidden; border: 1px solid #252525; position: relative; box-shadow: 0 10px 30px rgba(0,0,0,0.5); transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); cursor: pointer; }
-    .card:hover { transform: translateY(-10px) scale(1.02); border-color: #ff0000; box-shadow: 0 15px 40px rgba(255, 0, 0, 0.4); z-index: 10; }
     .card-img-box { position: relative; height: 220px; overflow: hidden; }
     .card img { width: 100%; height: 100%; object-fit: cover; transition: 0.5s; }
-    .card:hover img { transform: scale(1.1); }
     .card-info { padding: 15px; background: #121212; }
     .card h3 { margin: 0 0 5px; font-size: 18px; font-weight: 700; color: #fff; }
     
@@ -124,7 +119,6 @@
     .stat-item.active-dis { color: #ff4444; }
 
     .button { padding: 14px; background: linear-gradient(90deg, #ff0000, #800000); border: none; color: white; width: 100%; border-radius: 12px; font-size: 15px; font-weight: 800; cursor: pointer; text-transform: uppercase; margin-bottom: 12px; transition: 0.3s; }
-    .button:active { transform: scale(0.95); }
     
     .share-row { display: flex; justify-content: center; gap: 8px; margin-top: 5px; }
     .s-btn { flex: 1; padding: 10px 2px; font-size: 11px; font-weight: bold; border-radius: 8px; color: #ffffff !important; border: 1.5px solid rgba(255,255,255,0.3); cursor: pointer; text-shadow: 1px 1px 2px #000; }
@@ -180,9 +174,8 @@ const zoneIds = ['10480960', '10679278', '10679295'];
 const tg = window.Telegram.WebApp;
 tg.ready();
 tg.expand();
-tg.enableClosingConfirmation(); // সিকিউরিটি: অ্যাপ বন্ধের আগে কনফার্মেশন
+tg.enableClosingConfirmation();
 
-// কড়া সিকিউরিটি: ইনস্পেক্ট এলিমেন্ট ও কপি ব্লক
 document.onkeydown = function(e) {
     if(e.keyCode == 123 || (e.ctrlKey && e.shiftKey && (e.keyCode == 'I'.charCodeAt(0) || e.keyCode == 'J'.charCodeAt(0))) || (e.ctrlKey && e.keyCode == 'U'.charCodeAt(0))) return false;
 };
@@ -202,7 +195,6 @@ function triggerSearch(val) {
     const waUrl = `https://api.whatsapp.com/send?text=${encodeURIComponent(shareLink)}`;
     resultDiv.innerHTML = `<div class='card neon-highlight-card' id='search-card-${searchVal}' style='margin-bottom:30px;'><div class="card-img-box"><img src="${v.image}"></div><div class='card-info'><h3 style="color:#ff0000; font-size:13px; letter-spacing:1px;">⚡ DIRECT MATCH FOUND</h3><h3>${v.title}</h3><div class="meta-row"><span>📅 ${timeAgo((v.date || "") + " " + (v.time || ""))}</span><span class="id-badge" onclick="copyId('${searchVal}')"># ID: ${searchVal} 📋</span></div><div class="stats-bar"><div class="stat-group"><div class="stat-item">👁️ <span id="sv-${searchVal}">0</span></div><div class="stat-item">📥 <span id="sdn-${searchVal}">0</span></div></div></div><button class='button' onclick="startUnlock('${searchVal}')" id="btn-s-${searchVal}">🔒 UNLOCK (${requiredAdCount} ADS LEFT)</button><div class="share-row"><button class="s-btn btn-link" onclick="copyLink('${searchVal}')">Get Link</button><button class="s-btn btn-fb" onclick="openShare('${fbUrl}')">Facebook</button><button class="s-btn btn-wa" onclick="openShare('${waUrl}')">WhatsApp</button></div></div></div>`;
     
-    // ১৫ সেকেন্ড পর সার্চ কার্ডের হাইলাইট বন্ধ হবে
     setTimeout(() => {
         const sc = document.getElementById(`search-card-${searchVal}`);
         if(sc) sc.classList.remove('neon-highlight-card');
@@ -260,17 +252,19 @@ function handleAds(code, btn) {
 }
 
 function filterCat(type, btn) {
-    if(btn){ document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active')); btn.classList.add('active'); const displayName = document.getElementById("selectedCatName"); if(displayName) displayName.innerText = btn.innerText.toUpperCase(); }
+    if(btn){ 
+        document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active')); 
+        btn.classList.add('active'); 
+        const displayName = document.getElementById("selectedCatName"); 
+        if(displayName) displayName.innerText = btn.innerText.toUpperCase(); 
+    }
     const grid = document.getElementById("allVideos");
     grid.innerHTML = ""; 
     Object.keys(videos).forEach(code => {
         const v = videos[code];
         if (type === 'all' || v.cat === type) {
             const userVote = localStorage.getItem(`voted_${code}`);
-            const shareLink = `${botUrl}?startapp=${code}`;
-            const fbUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(shareLink)}`;
-            const waUrl = `https://api.whatsapp.com/send?text=${encodeURIComponent(shareLink)}`;
-            const cardHTML = `<div class="card" id="card-${code}"><div class="card-img-box"><img src="${v.image}" loading="lazy"></div><div class="card-info"><h3>${v.title}</h3><div class="meta-row"><span>📅 ${timeAgo(v.date + " " + (v.time || ""))}</span><span class="id-badge" onclick="copyId('${code}')"># ID: ${code} 📋</span></div><div class="stats-bar"><div class="stat-group"><div class="stat-item">👁️ <span id="v-${code}">0</span></div><div class="stat-item">📥 <span id="dn-${code}">0</span></div></div><div class="stat-group"><div class="stat-item ${userVote==='like'?'active-like':''}" onclick="handleVote('${code}','like')">👍 <span id="l-${code}">0</span></div><div class="stat-item ${userVote==='dislike'?'active-dis':''}" onclick="handleVote('${code}','dislike')">👎 <span id="d-${code}">0</span></div></div></div><button class="button" onclick="startUnlock('${code}')" id="btn-${code}">🔒 UNLOCK (${requiredAdCount} ADS LEFT)</button><div class="share-row"><button class="s-btn btn-link" onclick="copyLink('${code}')">Get Link</button><button class="s-btn btn-fb" onclick="openShare('${fbUrl}')">Facebook</button><button class="s-btn btn-wa" onclick="openShare('${waUrl}')">WhatsApp</button></div></div></div>`;
+            const cardHTML = `<div class="card" id="card-${code}"><div class="card-img-box"><img src="${v.image}" loading="lazy"></div><div class="card-info"><h3>${v.title}</h3><div class="meta-row"><span>📅 ${timeAgo(v.date + " " + (v.time || ""))}</span><span class="id-badge" onclick="copyId('${code}')"># ID: ${code} 📋</span></div><div class="stats-bar"><div class="stat-group"><div class="stat-item">👁️ <span id="v-${code}">0</span></div><div class="stat-item">📥 <span id="dn-${code}">0</span></div></div><div class="stat-group"><div class="stat-item ${userVote==='like'?'active-like':''}" onclick="handleVote('${code}','like')">👍 <span id="l-${code}">0</span></div><div class="stat-item ${userVote==='dislike'?'active-dis':''}" onclick="handleVote('${code}','dislike')">👎 <span id="d-${code}">0</span></div></div></div><button class="button" onclick="startUnlock('${code}')" id="btn-${code}">🔒 UNLOCK (${requiredAdCount} ADS LEFT)</button><div class="share-row"><button class="s-btn btn-link" onclick="copyLink('${code}')">Get Link</button><button class="s-btn btn-fb" onclick="openShare('https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(botUrl + "?startapp=" + code)}')">Facebook</button><button class="s-btn btn-wa" onclick="openShare('https://api.whatsapp.com/send?text=${encodeURIComponent(botUrl + "?startapp=" + code)}')">WhatsApp</button></div></div></div>`;
             grid.insertAdjacentHTML('beforeend', cardHTML);
             if(window.db) { window.onValue(window.ref(window.db, `stats/${code}`), (snap) => { const val = snap.val(); if(val){ if(document.getElementById(`v-${code}`)) document.getElementById(`v-${code}`).innerText = val.v || 0; if(document.getElementById(`dn-${code}`)) document.getElementById(`dn-${code}`).innerText = val.down || 0; if(document.getElementById(`l-${code}`)) document.getElementById(`l-${code}`).innerText = val.l || 0; if(document.getElementById(`d-${code}`)) document.getElementById(`d-${code}`).innerText = val.d || 0; } }); }
         }
@@ -289,30 +283,32 @@ function init() {
         });
     }
     filterCat('all', document.querySelector('.cat-btn'));
+    
+    // ভিডিও লিস্ট রেন্ডার হওয়ার পর স্ক্রল চেক (স্মার্ট ডিলে)
+    setTimeout(forceScrollToCard, 1500); 
 }
 
 let checkFirebase = setInterval(() => { if (window.db) { clearInterval(checkFirebase); init(); } }, 500);
 
-function handleAppRouting() {
+function forceScrollToCard() {
     const urlParams = new URLSearchParams(window.location.search);
-    const browserCode = urlParams.get('code');
-    let startParam = urlParams.get('tgWebAppStartParam') || (tg.initDataUnsafe && tg.initDataUnsafe.start_param ? tg.initDataUnsafe.start_param : null);
-    const targetCode = (browserCode || startParam);
-    if (targetCode) {
-        const cleanCode = targetCode.trim().toUpperCase();
+    let startParam = urlParams.get('tgWebAppStartParam') || urlParams.get('code');
+    
+    if (!startParam && tg.initDataUnsafe && tg.initDataUnsafe.start_param) {
+        startParam = tg.initDataUnsafe.start_param;
+    }
+
+    if (startParam) {
+        const cleanCode = startParam.trim().toUpperCase();
         const searchInput = document.getElementById('searchInput');
         if(searchInput) searchInput.value = cleanCode;
-        setTimeout(() => {
-            const cardElement = document.getElementById(`card-${cleanCode}`);
-            if (cardElement) { 
-                cardElement.scrollIntoView({ behavior: 'smooth', block: 'center' }); 
-                cardElement.classList.add('neon-highlight-card'); 
-                // ১৫ সেকেন্ড পর হাইলাইট বন্ধ হবে
-                setTimeout(() => {
-                    cardElement.classList.remove('neon-highlight-card');
-                }, 15000);
-            }
-        }, 500);
+
+        const cardElement = document.getElementById(`card-${cleanCode}`);
+        if (cardElement) {
+            cardElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            cardElement.classList.add('neon-highlight-card');
+            setTimeout(() => { cardElement.classList.remove('neon-highlight-card'); }, 15000);
+        }
     }
 }
 
@@ -328,13 +324,14 @@ function timeAgo(dateString) {
 }
 
 window.addEventListener('load', () => { 
-    let waitData = setInterval(() => { 
-        if (window.db && typeof videos !== 'undefined') { 
-            clearInterval(waitData); 
-            handleAppRouting(); 
+    let checkData = setInterval(() => { 
+        if (window.db && typeof videos !== 'undefined' && document.querySelectorAll('.card').length > 0) { 
+            clearInterval(checkData); 
+            setTimeout(forceScrollToCard, 1000);
         } 
-    }, 200); 
+    }, 500); 
 });
+
 document.getElementById("searchInput").addEventListener("input", function() { triggerSearch(this.value.trim().toUpperCase()); });
 </script>
 </body>
