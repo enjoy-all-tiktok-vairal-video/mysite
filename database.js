@@ -1,5 +1,101 @@
 // database.js ফাইলের ভেতরে শুধু এইটুকু থাকবে
 const videos = {
+    "EP_166": { 
+    title: "Episode 166", 
+    image: "https://i.ibb.co/W4c2mtyh/poster.jpg", 
+    final: "https://t.me/vaiiralwathevideo_bot?start=44ed143b-5", 
+    cat: "all", 
+    date: "17 Apr 2026", 
+    time: "10:38 am" 
+},
+"EP_165": { 
+    title: "Episode 165", 
+    image: "https://i.ibb.co/9kcdvKLg/poster.jpg", 
+    final: "https://t.me/vaiiralwathevideo_bot?start=8b6b372f-c", 
+    cat: "all", 
+    date: "17 Apr 2026", 
+    time: "10:38 am" 
+},
+"EP_164": { 
+    title: "Episode 164", 
+    image: "https://i.ibb.co/JjZfMzQn/poster.jpg", 
+    final: "https://t.me/vaiiralwathevideo_bot?start=9e755430-1", 
+    cat: "all", 
+    date: "17 Apr 2026", 
+    time: "10:38 am" 
+},
+"EP_163": { 
+    title: "Episode 163", 
+    image: "https://i.ibb.co/tpbkzmdr/poster.jpg", 
+    final: "https://t.me/vaiiralwathevideo_bot?start=68700407-9", 
+    cat: "all", 
+    date: "17 Apr 2026", 
+    time: "10:38 am" 
+},
+"EP_162": { 
+    title: "Episode 162", 
+    image: "https://i.ibb.co/1FbGrtJ/poster.jpg", 
+    final: "https://t.me/vaiiralwathevideo_bot?start=3d0ba25e-4", 
+    cat: "all", 
+    date: "17 Apr 2026", 
+    time: "10:38 am" 
+},
+"EP_161": { 
+    title: "Episode 161", 
+    image: "https://i.ibb.co/8gjVZLtR/poster.jpg", 
+    final: "https://t.me/vaiiralwathevideo_bot?start=2ef7f6c6", 
+    cat: "all", 
+    date: "17 Apr 2026", 
+    time: "10:38 am" 
+},
+"EP_160": { 
+    title: "Episode 160", 
+    image: "https://i.ibb.co/8gjVZLtR/poster.jpg", 
+    final: "https://t.me/vaiiralwathevideo_bot?start=2bd33d07", 
+    cat: "all", 
+    date: "17 Apr 2026", 
+    time: "10:38 am" 
+},
+"EP_159": { 
+    title: "Episode 159", 
+    image: "https://i.ibb.co/hJBPwsdM/poster.jpg", 
+    final: "https://t.me/vaiiralwathevideo_bot?start=b242953f-9", 
+    cat: "all", 
+    date: "17 Apr 2026", 
+    time: "10:38 am" 
+},
+"EP_158": { 
+    title: "Episode 158", 
+    image: "https://i.ibb.co/8gjVZLtR/poster.jpg", 
+    final: "https://t.me/vaiiralwathevideo_bot?start=680f7251", 
+    cat: "all", 
+    date: "17 Apr 2026", 
+    time: "10:38 am" 
+},
+"EP_157": { 
+    title: "Episode 157", 
+    image: "https://i.ibb.co/8gjVZLtR/poster.jpg", 
+    final: "https://t.me/vaiiralwathevideo_bot?start=f034f676", 
+    cat: "all", 
+    date: "17 Apr 2026", 
+    time: "10:38 am" 
+},
+"EP_156": { 
+    title: "Episode 156", 
+    image: "https://i.ibb.co/8gjVZLtR/poster.jpg", 
+    final: "https://t.me/vaiiralwathevideo_bot?start=faedf59b", 
+    cat: "all", 
+    date: "17 Apr 2026", 
+    time: "10:38 am" 
+},
+"EP_155": { 
+    title: "Episode 155", 
+    image: "https://i.ibb.co/PZH2H6Qq/poster.jpg", 
+    final: "https://t.me/vaiiralwathevideo_bot?start=f9a5dd22-1", 
+    cat: "all", 
+    date: "17 Apr 2026", 
+    time: "10:38 am" 
+},
     "EP_154": { 
     title: "Episode 154", 
     image: "https://i.ibb.co/xSpxg7Ws/poster.jpg", 
