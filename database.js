@@ -1,5 +1,85 @@
 // database.js ফাইলের ভেতরে শুধু এইটুকু থাকবে
 const videos = {
+    "EP_186": { 
+    title: "Episode 186", 
+    image: "https://i.ibb.co/8QR0FfH/poster.jpg", 
+    final: "https://t.me/vaiiralwathevideo_bot?start=19c60fe7-2", 
+    cat: "all", 
+    date: "25 Apr 2026", 
+    time: "02:16 pm" 
+},
+"EP_185": { 
+    title: "Episode 185", 
+    image: "https://i.ibb.co/LXvHQqWK/poster.jpg", 
+    final: "https://t.me/vaiiralwathevideo_bot?start=6d7373af-b", 
+    cat: "all", 
+    date: "25 Apr 2026", 
+    time: "02:16 pm" 
+},
+"EP_184": { 
+    title: "Episode 184", 
+    image: "https://i.ibb.co/8gjVZLtR/poster.jpg", 
+    final: "https://t.me/vaiiralwathevideo_bot?start=f35985eb", 
+    cat: "all", 
+    date: "25 Apr 2026", 
+    time: "02:16 pm" 
+},
+"EP_183": { 
+    title: "Episode 183", 
+    image: "https://i.ibb.co/RpwyK7jx/poster.jpg", 
+    final: "https://t.me/vaiiralwathevideo_bot?start=a1ceb09f-e", 
+    cat: "all", 
+    date: "25 Apr 2026", 
+    time: "02:16 pm" 
+},
+"EP_182": { 
+    title: "Episode 182", 
+    image: "https://i.ibb.co/gMdw2xhS/poster.jpg", 
+    final: "https://t.me/vaiiralwathevideo_bot?start=8f948e5a-6", 
+    cat: "all", 
+    date: "25 Apr 2026", 
+    time: "02:16 pm" 
+},
+"EP_181": { 
+    title: "Episode 181", 
+    image: "https://i.ibb.co/8gjVZLtR/poster.jpg", 
+    final: "https://t.me/vaiiralwathevideo_bot?start=97b4bd56-2", 
+    cat: "all", 
+    date: "25 Apr 2026", 
+    time: "02:16 pm" 
+},
+"EP_180": { 
+    title: "Episode 180", 
+    image: "https://i.ibb.co/8gjVZLtR/poster.jpg", 
+    final: "https://t.me/vaiiralwathevideo_bot?start=69464643", 
+    cat: "all", 
+    date: "25 Apr 2026", 
+    time: "02:16 pm" 
+},
+"EP_179": { 
+    title: "Episode 179", 
+    image: "https://i.ibb.co/MxS2qzr5/poster.jpg", 
+    final: "https://t.me/vaiiralwathevideo_bot?start=01bb4b70-0", 
+    cat: "all", 
+    date: "25 Apr 2026", 
+    time: "02:16 pm" 
+},
+"EP_178": { 
+    title: "Episode 178", 
+    image: "https://i.ibb.co/bg6CW0r2/poster.jpg", 
+    final: "https://t.me/vaiiralwathevideo_bot?start=91f110a6-0", 
+    cat: "all", 
+    date: "25 Apr 2026", 
+    time: "02:16 pm" 
+},
+"EP_177": { 
+    title: "Episode 177", 
+    image: "https://i.ibb.co/46x36LC/poster.jpg", 
+    final: "https://t.me/vaiiralwathevideo_bot?start=b0ab2ce0-0", 
+    cat: "all", 
+    date: "25 Apr 2026", 
+    time: "02:16 pm" 
+},
     "EP_176": { 
     title: "Episode 176", 
     image: "https://i.ibb.co/MkS54RqS/poster.jpg", 
