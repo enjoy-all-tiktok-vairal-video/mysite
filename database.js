@@ -1,5 +1,45 @@
 // database.js ফাইলের ভেতরে শুধু এইটুকু থাকবে
 const videos = {
+    "EP_218": { 
+    title: "Episode 218", 
+    image: "https://i.ibb.co/9M0Q18C/poster.jpg", 
+    final: "https://t.me/vaiiralwathevideo_bot?start=71ecacfc-7", 
+    cat: "all", 
+    date: "08 May 2026", 
+    time: "12:06 am" 
+},
+"EP_217": { 
+    title: "Episode 217", 
+    image: "https://i.ibb.co/Kxj6bZ9L/poster.jpg", 
+    final: "https://t.me/vaiiralwathevideo_bot?start=904c42ca-3", 
+    cat: "all", 
+    date: "08 May 2026", 
+    time: "12:06 am" 
+},
+"EP_216": { 
+    title: "Episode 216", 
+    image: "https://i.ibb.co/p6T8hZ3K/poster.jpg", 
+    final: "https://t.me/vaiiralwathevideo_bot?start=fafd6653-0", 
+    cat: "all", 
+    date: "08 May 2026", 
+    time: "12:06 am" 
+},
+"EP_215": { 
+    title: "Episode 215", 
+    image: "https://i.ibb.co/MD18hjgS/poster.jpg", 
+    final: "https://t.me/vaiiralwathevideo_bot?start=3abdf92c-1", 
+    cat: "all", 
+    date: "08 May 2026", 
+    time: "12:06 am" 
+},
+"EP_214": { 
+    title: "Episode 214", 
+    image: "https://i.ibb.co/gMfx3zSq/poster.jpg", 
+    final: "https://t.me/vaiiralwathevideo_bot?start=11748c27-6", 
+    cat: "all", 
+    date: "08 May 2026", 
+    time: "12:06 am" 
+},
     "EP_213": { 
     title: "Episode 213", 
     image: "https://i.ibb.co/ymGTrd33/poster.jpg", 
