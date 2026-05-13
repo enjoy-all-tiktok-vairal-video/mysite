@@ -1,5 +1,69 @@
 // database.js ফাইলের ভেতরে শুধু এইটুকু থাকবে
 const videos = {
+    "EP_226": { 
+    title: "Episode 226", 
+    image: "https://i.ibb.co/8ncrmKg4/poster.jpg", 
+    final: "https://t.me/vaiiralwathevideo_bot?start=06095a30", 
+    cat: "all", 
+    date: "13 May 2026", 
+    time: "02:38 pm" 
+},
+"EP_225": { 
+    title: "Episode 225", 
+    image: "https://i.ibb.co/8LzqTkpk/poster.jpg", 
+    final: "https://t.me/vaiiralwathevideo_bot?start=6d6de27f", 
+    cat: "all", 
+    date: "13 May 2026", 
+    time: "02:38 pm" 
+},
+"EP_224": { 
+    title: "Episode 224", 
+    image: "https://i.ibb.co/bjYgZMbd/poster.jpg", 
+    final: "https://t.me/vaiiralwathevideo_bot?start=6b3ee066", 
+    cat: "all", 
+    date: "13 May 2026", 
+    time: "02:38 pm" 
+},
+"EP_223": { 
+    title: "Episode 223", 
+    image: "https://i.ibb.co/8gjVZLtR/poster.jpg", 
+    final: "https://t.me/vaiiralwathevideo_bot?start=3888e802", 
+    cat: "all", 
+    date: "13 May 2026", 
+    time: "02:38 pm" 
+},
+"EP_222": { 
+    title: "Episode 222", 
+    image: "https://i.ibb.co/8Dqc6b4v/poster.jpg", 
+    final: "https://t.me/vaiiralwathevideo_bot?start=eac34d0a-9", 
+    cat: "all", 
+    date: "13 May 2026", 
+    time: "02:38 pm" 
+},
+"EP_221": { 
+    title: "Episode 221", 
+    image: "https://i.ibb.co/Ld4nngY6/poster.jpg", 
+    final: "https://t.me/vaiiralwathevideo_bot?start=27d24696", 
+    cat: "all", 
+    date: "13 May 2026", 
+    time: "02:38 pm" 
+},
+"EP_220": { 
+    title: "Episode 220", 
+    image: "https://i.ibb.co/RpB4j789/poster.jpg", 
+    final: "https://t.me/vaiiralwathevideo_bot?start=bd8b48a8", 
+    cat: "all", 
+    date: "13 May 2026", 
+    time: "02:38 pm" 
+},
+"EP_219": { 
+    title: "Episode 219", 
+    image: "https://i.ibb.co/5hrcQq8j/poster.jpg", 
+    final: "https://t.me/vaiiralwathevideo_bot?start=aaad872a", 
+    cat: "all", 
+    date: "13 May 2026", 
+    time: "02:38 pm" 
+},
     "EP_218": { 
     title: "Episode 218", 
     image: "https://i.ibb.co/9M0Q18C/poster.jpg", 
